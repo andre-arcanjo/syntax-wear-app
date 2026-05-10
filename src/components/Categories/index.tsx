@@ -18,7 +18,7 @@ export const Categories = () => {
             {categories.map((category, index) => (
                 <div
                     key={index}
-                    className='h-[31.25rem] bg-center bg-cover rounded-[20px] relative flex justify-center items-center shrink-0 w-[95%] 
+                    className='h-125 bg-center bg-cover rounded-[20px] relative flex justify-center items-center shrink-0 w-[95%] 
                     md:w-1/2 lg:w-full snap-center'
                     style={{ backgroundImage: `url(${category.image})` }}
                 >

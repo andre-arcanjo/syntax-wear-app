@@ -10,7 +10,7 @@ export const Button = ({ children, variant = "primary", size = "md" }: ButtonPro
     variant: {
       primary: "bg-white text-[#6329A2] hover:bg-gray-100",
       secondary:
-        "bg-transparent borber border-white text-white hover:bg-white hover:text-black",
+        "bg-transparent border border-white text-white hover:bg-white hover:text-black",
     },
     size: {
       sm: "px-5",
