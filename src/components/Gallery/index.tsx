@@ -1,19 +1,30 @@
 import banner from "../../assets/images/grid/card_imagem.jpg";
 import tenisRoxo from "../../assets/images/grid/card-tenis-roxo-e-verde.svg";
-import modelo from "../../assets/images/grid/card-modelo.svg"
-import tenisColorido from "../../assets/images/grid/card-tenis-colorido.svg"
-import tenisBrancoEPreto from "../../assets/images/grid/card-tenis-preto-azul.svg"
-import tenisCinza from "../../assets/images/grid/card-tenis-cinza.svg"
+import modelo from "../../assets/images/grid/card-modelo.svg";
+import tenisColorido from "../../assets/images/grid/card-tenis-colorido.svg";
+import tenisBrancoEPreto from "../../assets/images/grid/card-tenis-preto-azul.svg";
+import tenisCinza from "../../assets/images/grid/card-tenis-cinza.svg";
+import { Overlay } from "../Overlay";
+import { Button } from "../Button";
 
 export const Gallery = () => {
   return (
     <section className="container grid grid-cols-12 gap-2.5 md:gap-7 mb-10">
-      <div className="col-span-12 row-span-3 md:col-span-6 order-1">
+      <div className="relative col-span-12 row-span-3 md:col-span-6 order-1">
         <img
           className="w-full h-full object-cover rounded-[20px]"
           src={banner}
           alt="Banner"
         />
+
+        <Overlay
+          title="Kripton One"
+          subtitle="Estilo urbano com atitude"
+          className="inset-0 justify-center absolute"
+        >
+          <Button variant="secondary">Feminino</Button>
+          <Button variant="secondary">Masculino</Button>
+        </Overlay>
       </div>
 
       <div className="col-span-12 row-span-1 md:col-span-6 order-6 md:order-2">
