@@ -10,7 +10,10 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <>
       <div className="rounded-2xl shadow-md bg-white">
-        <Link to="/products">
+        <Link
+          to="/products/$Productid"
+          params={{ Productid: String(product.id) }}
+        >
           <img
             className="w-full max-h-100 object-cover rounded-md mb-2"
             src={product.image}
