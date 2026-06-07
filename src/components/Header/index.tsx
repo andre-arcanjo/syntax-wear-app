@@ -10,7 +10,9 @@ export const Header = () => {
       <div className="relative">
         <header className="fixed top-10 left-0 right-0 z-10 mx-10">
           <div className="bg-white text-black max-w-330 mx-auto flex justify-between items-center py-3 px-7 rounded-2xl mt-5">
-            <img src={Logo} alt="Logo SyntaxWear" className="w-32 md:w-36" />
+            <Link to="/">
+              <img src={Logo} alt="Logo SyntaxWear" className="w-32 md:w-36" />
+            </Link>
 
             <nav>
               <ul className="flex gap-4 md:gap-10">
