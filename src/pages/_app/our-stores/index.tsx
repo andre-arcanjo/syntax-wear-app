@@ -1,11 +1,11 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
 import OurStoresBanner from "../../../assets/images/our-store/banner-our-stores.png";
 import OurStoresImg1 from "../../../assets/images/our-store/loja-1.png";
 import OurStoresImg2 from "../../../assets/images/our-store/loja-2.png";
 
-export const Route = createFileRoute('/_app/our-stores/')({
+export const Route = createFileRoute("/_app/our-stores/")({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
   return (
@@ -49,10 +49,11 @@ function RouteComponent() {
             />
 
             <div className="text-center py-6 px-3">
-              <h2 className='text-3xl mb-5'>Atendimento Sob Medida</h2>
+              <h2 className="text-3xl mb-5">Atendimento Sob Medida</h2>
 
               <p>
-                Conte com dicas de estilo, sugestões exclusivas e suporte personalizado de quem realmente entende de moda.
+                Conte com dicas de estilo, sugestões exclusivas e suporte
+                personalizado de quem realmente entende de moda.
               </p>
             </div>
           </div>
