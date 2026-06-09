@@ -5,7 +5,7 @@ import { CartContext } from "../../context/CartContext";
 
 export const ShoppingCart = () => {
   const [cartIsOpen, setCartIsOpen] = useState<boolean>(false);
-  const { cart, remove, increment, decrement } = useContext(CartContext)
+  const { cart, remove, increment, decrement } = useContext(CartContext);
 
   return (
     <>
@@ -31,14 +31,24 @@ export const ShoppingCart = () => {
         >
           <header className="flex items-center justify-between px-5">
             <p className="text-2xl font-bold">Carrinho ({cart.length})</p>
-            <button className="text-xl cursor-pointer" onClick={() => setCartIsOpen(!cartIsOpen)}>X</button>
+            <button
+              className="text-xl cursor-pointer"
+              onClick={() => setCartIsOpen(!cartIsOpen)}
+            >
+              X
+            </button>
           </header>
 
           <ul className="p-4 h-[calc(100%-140px)] flex flex-col gap-3 overflow-y-auto scrollbar-hide">
             {cart.map((product) => (
               <li key={product.id} className="flex flex-col gap-1 px-6">
                 {product.name}
-                <button onClick={() => remove(product.id)} className="self-end text-xs cursor-pointer">X</button>
+                <button
+                  onClick={() => remove(product.id)}
+                  className="self-end text-xs cursor-pointer"
+                >
+                  X
+                </button>
 
                 <div className="flex gap-4">
                   <img
@@ -59,9 +69,19 @@ export const ShoppingCart = () => {
                       à vista
                     </p>
                     <div className="border flex gap-6 py-1 px-3">
-                      <button onClick={() => decrement(product) } className="cursor-pointer">-</button>
+                      <button
+                        onClick={() => decrement(product)}
+                        className="cursor-pointer"
+                      >
+                        -
+                      </button>
                       <p>{product.quantity}</p>
-                      <button onClick={() => increment(product)} className="cursor-pointer">+</button>
+                      <button
+                        onClick={() => increment(product)}
+                        className="cursor-pointer"
+                      >
+                        +
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -70,7 +90,9 @@ export const ShoppingCart = () => {
           </ul>
 
           <footer className="absolute bottom-0 w-full h-25 p-4">
-            <button className="w-full h-full bg-black text-white rounded-xs cursor-pointer hover:bg-gray-800">Fechar pedido</button>
+            <button className="w-full h-full bg-black text-white rounded-xs cursor-pointer hover:bg-gray-800">
+              Fechar pedido
+            </button>
           </footer>
         </div>
       </div>

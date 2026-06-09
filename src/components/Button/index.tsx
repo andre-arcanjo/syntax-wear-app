@@ -4,7 +4,11 @@ interface ButtonProps {
   size?: "sm" | "md" | "lg";
 }
 
-export const Button = ({ children, variant = "primary", size = "md" }: ButtonProps) => {
+export const Button = ({
+  children,
+  variant = "primary",
+  size = "md",
+}: ButtonProps) => {
   const buttonStyles = {
     base: "flex justify-center items-center gap-2 text-nowrap leading-none hover:cursor-pointer transition-colors duaration-200 font-medium rounded-full transition py-2.5",
     variant: {

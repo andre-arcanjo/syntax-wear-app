@@ -9,8 +9,7 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
-
-  const { add } = useContext(CartContext)
+  const { add } = useContext(CartContext);
 
   return (
     <>
