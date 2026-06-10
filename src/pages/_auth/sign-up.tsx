@@ -1,16 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { RegisterForm } from "../../components/RegisterForm";
 import { Logo } from "../../components/Logo";
 import { Separator } from "../../components/Separator";
-import GoogleIcon  from "../../assets/images/icons/google-icon.png"
+import GoogleIcon from "../../assets/images/icons/google-icon.png";
 
 export const Route = createFileRoute("/_auth/sign-up")({
   component: RouteComponent,
   head: () => ({
-    meta: [
-      {title: 'Cadastre-se - SyntaxWear'}
-    ]
-  })
+    meta: [{ title: "Cadastre-se - SyntaxWear" }],
+  }),
 });
 
 function RouteComponent() {
@@ -29,10 +27,10 @@ function RouteComponent() {
         </button>
 
         <p className="text-sm text-gray-600 mt-6 text-center">
-          Já tem uma conta? { " " }
-          <a href="/sign-in" className="text-accent hover:underline">
+          Já tem uma conta?{" "}
+          <Link to="/sign-in" className="ml-1 text-accent hover:underline">
             Entrar
-          </a>
+          </Link>
         </p>
       </div>
     </section>
