@@ -1,6 +1,5 @@
 import Logo from "../../assets/images/icons/logo.svg";
 import IconUser from "../../assets/images/icons/minha-conta.svg";
-import IconAbout from "../../assets/images/icons/ajuda.svg";
 import { Link } from "@tanstack/react-router";
 import { ShoppingCart } from "../ShoppingCart";
 import { MenuMobile } from "../MenuMobile";
@@ -11,10 +10,10 @@ export interface NavLink {
 }
 
 const navLinks: NavLink[] = [
-  {name: "Masculino", href: "/products/category/masculino"},
-  {name: "Feminino", href: "/products/category/feminino"},
-  {name: "Outlet", href: "/products/category/outlet"},
-]
+  { name: "Masculino", href: "/products/category/masculino" },
+  { name: "Feminino", href: "/products/category/feminino" },
+  { name: "Outlet", href: "/products/category/outlet" },
+];
 
 export const Header = () => {
   return (
@@ -30,7 +29,9 @@ export const Header = () => {
               <ul className="flex gap-4 md:gap-10">
                 {navLinks.map((link) => (
                   <li key={link.name}>
-                    <Link to={link.href} key={link.name}>{link.name}</Link>
+                    <Link to={link.href} key={link.name}>
+                      {link.name}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -50,11 +51,6 @@ export const Header = () => {
                 <li className="hidden lg:block">
                   <Link to="/sign-up">
                     <img src={IconUser} alt="Icone de login" />
-                  </Link>
-                </li>
-                <li className="hidden lg:block">
-                  <Link to="/about">
-                    <img src={IconAbout} alt="Ícone de Sobre" />
                   </Link>
                 </li>
                 <li>
