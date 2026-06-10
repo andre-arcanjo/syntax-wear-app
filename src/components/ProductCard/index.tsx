@@ -15,8 +15,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     <>
       <div className="rounded-2xl shadow-md bg-white">
         <Link
-          to="/products/$Productid"
-          params={{ Productid: String(product.id) }}
+          to="/products/$productId"
+          params={{ productId: String(product.id) }}
         >
           <img
             className="w-full max-h-100 object-cover rounded-md mb-2"
