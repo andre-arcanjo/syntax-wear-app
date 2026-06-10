@@ -5,14 +5,25 @@ import { useContext } from "react";
 import { CartContext } from "../../../context/CartContext";
 import { CEPForm } from "../../../components/CEPForm";
 
-export const Route = createFileRoute("/_app/products/$Productid")({
+export const Route = createFileRoute("/_app/products/$productId")({
   component: RouteComponent,
+  head: ({ params }) => {
+    const filteredProduct = products.find(
+      (product) => product.id === Number(params.productId),
+    );
+
+    const title = filteredProduct
+      ? `${filteredProduct.name} - Produtos - SyntaxWear`
+      : "Produto não encontrado - Produtos - SyntaxWear";
+
+    return { meta: [{ title }] };
+  },
 });
 
 function RouteComponent() {
   const { add } = useContext(CartContext);
 
-  const { Productid: productId } = Route.useParams();
+  const { productId: productId } = Route.useParams();
 
   const filteredProduct = products.find(
     (product) => product.id === Number(productId),
@@ -21,13 +32,14 @@ function RouteComponent() {
   if (!filteredProduct)
     return (
       <section className="container mb-10 pt-44 md:pt-54 pb-10 md:px-10 text-center text-black min-h-[80vh] flex flex-col justify-center items-center">
-        <h1 className="text-3xl font-bold mb-4">
-          Produto não encontrado
-        </h1>
+        <h1 className="text-3xl font-bold mb-4">Produto não encontrado</h1>
         <p className="mb-6">
           O produto que você está procurando não existe ou foi removido.
         </p>
-        <Link to="/products" className="text-accent hover:text-accent-hover underline">
+        <Link
+          to="/products"
+          className="text-accent hover:text-accent-hover underline"
+        >
           Voltar para produtos
         </Link>
       </section>
