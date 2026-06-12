@@ -1,73 +1,77 @@
-# React + TypeScript + Vite
+# Syntax Wear 👟
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Syntax Wear é uma plataforma de e-commerce moderna e performática especializada em calçados, desenvolvida com as tecnologias mais recentes do ecossistema React.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologias
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Este projeto foi construído utilizando:
 
-## React Compiler
+- **React 19**: Biblioteca principal para construção da interface.
+- **Vite**: Build tool extremamente rápida para o desenvolvimento frontend.
+- **TypeScript**: Superset do JavaScript que adiciona tipagem estática.
+- **TanStack Router**: Roteamento baseado em arquivos com segurança de tipos (Type-safe).
+- **Tailwind CSS 4**: Framework utilitário para estilização rápida e responsiva.
+- **React Hook Form & Zod**: Gerenciamento de formulários e validação de dados.
+- **React Icons**: Conjunto de ícones populares para React.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Funcionalidades
 
-## Expanding the ESLint configuration
+- [x] **Navegação Intuitiva**: Sistema de rotas robusto com TanStack Router.
+- [x] **Carrinho de Compras**: Gerenciamento de estado global para produtos no carrinho.
+- [x] **Catálogo de Produtos**: Listagem dinâmica de produtos e categorias.
+- [x] **Detalhes do Produto**: Visualização detalhada de cada item.
+- [x] **Autenticação**: Telas de login e registro prontas para integração.
+- [x] **Responsividade**: Interface adaptável para dispositivos móveis e desktop.
+- [x] **Validação de Formulários**: Feedback em tempo real para o usuário usando Zod.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📦 Como começar
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Pré-requisitos
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Certifique-se de ter o [Node.js](https://nodejs.org/) instalado em sua máquina.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Instalação
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/syntax-wear-app.git
+   ```
+
+2. Entre no diretório do projeto:
+   ```bash
+   cd syntax-wear-app
+   ```
+
+3. Instale as dependências:
+   ```bash
+   npm install
+   ```
+
+### Desenvolvimento
+
+Para iniciar o servidor de desenvolvimento:
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Build
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Para gerar a versão de produção:
+```bash
+npm run build
 ```
+
+## 📂 Estrutura de Pastas
+
+```text
+src/
+├── assets/         # Imagens, fontes e ícones
+├── components/     # Componentes reutilizáveis (Button, Header, etc.)
+├── context/        # Contextos da aplicação (CartContext)
+├── interfaces/     # Definições de tipos TypeScript
+├── mocks/          # Dados fictícios para desenvolvimento
+├── pages/          # Estrutura de rotas (TanStack Router)
+├── styles/         # Arquivos de estilo global
+└── utils/          # Funções utilitárias e validadores
+```
+
