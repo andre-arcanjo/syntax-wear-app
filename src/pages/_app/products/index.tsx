@@ -44,7 +44,6 @@ function RouteComponent() {
         setPage((prev) => prev + 1);
       }
 
-      console.log(response);
     } catch (error) {
       console.error('Erro ao carregar produtos:', error);
       setHasMore(false);
