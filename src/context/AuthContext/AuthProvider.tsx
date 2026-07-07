@@ -80,7 +80,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }
 
   async function signOut(): Promise<void> {
-    
+    try {
+      await fetch("http://localhost:3000/auth/signout", {
+        method: "POST",
+        credentials: "include", // faz com que os cookies sejam enviados junto com a requisição
+      });
+
+      setUser(null);
+      setIsAuthenticated(false);
+    } catch (error) {
+      console.error("Erro ao fazer logout:", error);
+    }
   }
 
   async function signInWithGoogle(credential: string): Promise<void> {
