@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useLoaderData } from '@tanstack/react-router';
 import { formatCurrency } from '../../../utils/format-currency';
 import { useContext } from 'react';
-import { CartContext } from '../../../context/CartContext';
+import { CartContext } from '../../../context/CartContext/CartContext';
 import { CEPForm } from '../../../components/CEPForm';
 import { getProductDetailById } from '../../../services/productService';
 
