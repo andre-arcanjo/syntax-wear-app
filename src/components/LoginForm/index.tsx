@@ -78,7 +78,7 @@ export const LoginForm = () => {
       </button>
 
       {error && (
-        <span className="text-red-500 text-sm text-center">{error}</span>
+        <p className="text-red-500 text-sm text-center">{error}</p>
       )}
     </form>
   );

@@ -29,7 +29,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         const data = await response.json();
         setUser(data.user);
         setIsAuthenticated(true);
-
       } catch (error) {
         console.error('Erro ao buscar perfil do usuário:', error);
         setUser(null);
@@ -81,15 +80,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   async function signOut(): Promise<void> {
     try {
-      await fetch("http://localhost:3000/auth/signout", {
-        method: "POST",
-        credentials: "include", // faz com que os cookies sejam enviados junto com a requisição
+      await fetch('http://localhost:3000/auth/signout', {
+        method: 'POST',
+        credentials: 'include', // faz com que os cookies sejam enviados junto com a requisição
       });
 
       setUser(null);
       setIsAuthenticated(false);
     } catch (error) {
-      console.error("Erro ao fazer logout:", error);
+      console.error('Erro ao fazer logout:', error);
     }
   }
 

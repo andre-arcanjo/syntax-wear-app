@@ -33,7 +33,7 @@ export const registerUserFormSchema = z
     path: ["confirmPassword"],
   });
 
-type RegisterFormData = z.infer<typeof registerUserFormSchema>;
+export type RegisterFormData = z.infer<typeof registerUserFormSchema>;
 
 export const useRegisterForm = () => {
   const {
