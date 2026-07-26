@@ -1,10 +1,12 @@
-import { useRouter } from "@tanstack/react-router";
-import Banner from "../../assets/images/hero/banner.svg";
-import { Button } from "../Button";
-import { Overlay } from "../Overlay";
+import { useRouter } from '@tanstack/react-router';
+import Banner from '../../assets/images/hero/banner.svg';
+import { Button } from '../Button';
+import { Overlay } from '../Overlay';
 
 export const Hero = () => {
   const router = useRouter();
+
+  const KryptonOneId = 16;
 
   return (
     <>
@@ -25,13 +27,24 @@ export const Hero = () => {
               variant="secondary"
               onClick={() =>
                 router.navigate({
-                  to: "/products",
+                  to: '/products',
                 })
               }
             >
               Ver modelos
             </Button>
-            <Button>Comprar</Button>
+            <Button
+              onClick={() =>
+                router.navigate({
+                  to: '/products/$productId',
+                  params: {
+                    productId: KryptonOneId.toString(),
+                  },
+                })
+              }
+            >
+              Comprar
+            </Button>
           </Overlay>
         </section>
       </div>
