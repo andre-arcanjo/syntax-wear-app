@@ -1,32 +1,57 @@
-const menus = [
-  { title: "Masculino", items: ["Casual", "Esporte", "Moderno", "Futurista"] },
-  { title: "Feminino", items: ["Casual", "Esporte", "Moderno", "Futurista"] },
-  { title: "Outlet", items: ["Masculino", "Feminino"] },
-  { title: "Sobre", items: ["Quem Somos", "Missão"] },
+import { Link, useRouter } from '@tanstack/react-router';
+
+const menuCategories = [
+  { id: 1, items: ['Casual', 'Esporte', 'Moderno', 'Futurista'] },
+  { id: 2, items: ['Masculino', 'Feminino', 'Outlet'] },
+];
+
+const menuAbout = [
+  { id: 1, item: 'Nossas Lojas', link: '/our-stores' },
+  { id: 2, item: 'Sobre', link: '/about' },
 ];
 
 export const MenuItems = () => {
+  const router = useRouter();
+
   return (
     <div className="flex flex-col sm:flex-row gap-8">
-      {menus.map(({ title, items }) => (
-        <nav key={title}>
+      {menuCategories.map(({ id, items }) => (
+        <nav key={id}>
           <ul className="flex flex-col gap-4">
-            <li>
-              <p className="font-normal text-surface-alt text-xl">{title}</p>
-            </li>
             {items.map((item) => (
               <li key={item}>
-                <a
+                <button
                   className="font-medium hover:text-text-tertiary transition-colors text-xl"
-                  href="#"
+                  onClick={() =>
+                    router.navigate({
+                      to: '/products/category/$category',
+                      params: {
+                        category: item.toLowerCase(),
+                      },
+                    })
+                  }
                 >
                   {item}
-                </a>
+                </button>
               </li>
             ))}
           </ul>
         </nav>
       ))}
+      <nav>
+        <ul className="flex flex-col gap-4">
+          {menuAbout.map(({ id, item, link }) => (
+            <li key={id}>
+              <Link
+                to={link}
+                className="font-medium hover:text-text-tertiary transition-colors text-xl"
+              >
+                {item}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   );
 };
