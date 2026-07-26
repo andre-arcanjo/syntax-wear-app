@@ -2,7 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { ProductList } from '../../../../components/ProductList';
 import { getCategoryByName } from '../../../../services/categoryService';
 import { getProductByCategoryId } from '../../../../services/productService';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Product } from '../../../../interfaces/product';
 
 export const Route = createFileRoute('/_app/products/category/$category')({
@@ -32,31 +32,32 @@ function RouteComponent() {
 
   const { category } = Route.useLoaderData();
 
-  const hasFetchedInitialProducts = useRef(false);
-
   useEffect(() => {
-    if (hasFetchedInitialProducts.current) return;
-    hasFetchedInitialProducts.current = true;
+    setPage(1);
+    setHasMore(true);
+    loadMore(true); // reset
+  }, [category.id]);
 
-    loadMore();
-  }, []);
-
-  async function loadMore() {
-    if (loading || !hasMore) return;
+  async function loadMore(reset = false) {
+    if (loading || (!hasMore && !reset)) return;
 
     setLoading(true);
 
     try {
+      const currentPage = reset ? 1 : page;
+
       const filteredProducts = await getProductByCategoryId(category.id, {
-        page,
+        page: currentPage,
       });
 
-      setProducts((prev) => [...prev, ...filteredProducts.data]);
+      setProducts((prev) =>
+        reset ? filteredProducts.data : [...prev, ...filteredProducts.data],
+      );
 
       if (filteredProducts.data.length < filteredProducts.limit) {
         setHasMore(false);
       } else {
-        setPage((prev) => prev + 1);
+        setPage(currentPage + 1);
       }
     } catch (error) {
       console.error('Erro ao carregar produtos:', error);
@@ -97,7 +98,7 @@ function RouteComponent() {
           {hasMore && (
             <button
               className="bg-[#212A2F] py-3.5 px-7 rounded-xl cursor-pointer mx-auto text-white disabled:opacity-50 disabled:cursor-not-allowed"
-              onClick={loadMore}
+              onClick={() => loadMore()}
               disabled={loading}
             >
               {loading ? 'Carregando...' : 'Carregar mais'}
