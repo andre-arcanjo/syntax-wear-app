@@ -1,8 +1,11 @@
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext/CartContext";
 import { formatCurrency } from "../../utils/format-currency";
+import { useAuth } from "../../context/AuthContext/AuthContext";
 
 export const Checkout = () => {
+
+  const { user } = useAuth()
 
   const { cart } = useContext(CartContext)
 
@@ -18,8 +21,8 @@ export const Checkout = () => {
             <h2 className="text-xl font-bold">Identificação</h2>
 
             <div className="rounded-[28px]">
-              <p className="text-sm text-[#C5C5C5]">Email</p>
-              <p className="text-sm text-[#C5C5C5]">Sobrenome</p>
+              <p className="text-sm text-[#C5C5C5]">{user?.email}</p>
+              <p className="text-sm text-[#C5C5C5]">{user?.firstName}</p>
 
               <div className="flex gap-4 rounded-2xl bg-[#F5F5F7] p-4">
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white text-sm">
@@ -30,7 +33,7 @@ export const Checkout = () => {
                     Antes de continuar, verifique se o telefone para contato
                     está correto.
                   </p>
-                  <p className="text-sm font-semibold">00 000000000</p>
+                  <p className="text-sm font-semibold">{user?.phone}</p>
                 </div>
               </div>
 
