@@ -1,9 +1,4 @@
-interface OverlayProps {
-  children: React.ReactNode;
-  title: string;
-  subtitle: string;
-  className?: string;
-}
+import type { OverlayProps } from '../../interfaces/overlay';
 
 export const Overlay = ({
   children,

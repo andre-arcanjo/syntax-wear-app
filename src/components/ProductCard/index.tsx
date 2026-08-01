@@ -1,13 +1,9 @@
-import { Link } from "@tanstack/react-router";
-import type { Product } from "../../interfaces/product";
-import { MdAddShoppingCart } from "react-icons/md";
-import { useContext } from "react";
-import { CartContext } from "../../context/CartContext/CartContext";
-import { formatCurrency } from "../../utils/format-currency";
-
-interface ProductCardProps {
-  product: Product;
-}
+import { Link } from '@tanstack/react-router';
+import type { ProductCardProps } from '../../interfaces/product';
+import { MdAddShoppingCart } from 'react-icons/md';
+import { useContext } from 'react';
+import { CartContext } from '../../context/CartContext/CartContext';
+import { formatCurrency } from '../../utils/format-currency';
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const { add } = useContext(CartContext);

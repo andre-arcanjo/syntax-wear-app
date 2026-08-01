@@ -1,9 +1,5 @@
-import type { Product } from "../../interfaces/product";
-import { ProductCard } from "../ProductCard";
-
-interface ProductListProps {
-  products: Product[];
-}
+import type { ProductListProps } from '../../interfaces/product';
+import { ProductCard } from '../ProductCard';
 
 export const ProductList = ({ products }: ProductListProps) => {
   return (

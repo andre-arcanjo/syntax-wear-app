@@ -1,19 +1,18 @@
-import { useContext } from "react";
-import { CartContext } from "../../context/CartContext/CartContext";
-import { formatCurrency } from "../../utils/format-currency";
-import { useAuth } from "../../context/AuthContext/AuthContext";
+import { useContext } from 'react';
+import { CartContext } from '../../context/CartContext/CartContext';
+import { formatCurrency } from '../../utils/format-currency';
+import { useAuth } from '../../context/AuthContext/AuthContext';
 
 export const Checkout = () => {
+  const { user } = useAuth();
 
-  const { user } = useAuth()
-
-  const { cart } = useContext(CartContext)
+  const { cart } = useContext(CartContext);
 
   const totalProducts = cart.reduce((acc, price) => {
-    return acc + price.price
-  }, 0)
+    return acc + price.price;
+  }, 0);
 
-    return (
+  return (
     <div className="min-h-screen flex justify-center bg-[rgb(236,233,226)] text-black py-10">
       <section className="flex justify-center items-center gap-20">
         <div className="identificacao flex flex-col gap-10">
@@ -49,16 +48,9 @@ export const Checkout = () => {
           <div className="rounded-[30px] border border-border bg-white p-8 shadow-sm space-y-6">
             <h2 className="text-xl font-bold">Informe seu endereço</h2>
 
-            <input
-              type="text"
-              placeholder="CEP"
-              value='cep'
-              className="..."
-            />
+            <input type="text" placeholder="CEP" value="cep" className="..." />
 
-            <button>
-              Buscar
-            </button>
+            <button>Buscar</button>
 
             <div className="space-y-4">
               <input

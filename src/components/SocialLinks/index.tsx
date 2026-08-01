@@ -1,13 +1,13 @@
-import iconInstagram from "../../assets/images/icons/instagram.svg";
-import iconFacebook from "../../assets/images/icons/facebook.svg";
-import iconTikTok from "../../assets/images/icons/tiktok.svg";
-import iconWhatsapp from "../../assets/images/icons/whatsapp.svg";
+import iconInstagram from '../../assets/images/icons/instagram.svg';
+import iconFacebook from '../../assets/images/icons/facebook.svg';
+import iconTikTok from '../../assets/images/icons/tiktok.svg';
+import iconWhatsapp from '../../assets/images/icons/whatsapp.svg';
 
 const socialLinks = [
-  { href: "#", icon: iconInstagram, name: "Instagram" },
-  { href: "#", icon: iconFacebook, name: "Facebook" },
-  { href: "#", icon: iconTikTok, name: "TikTok" },
-  { href: "#", icon: iconWhatsapp, name: "WhatsApp" },
+  { href: '#', icon: iconInstagram, name: 'Instagram' },
+  { href: '#', icon: iconFacebook, name: 'Facebook' },
+  { href: '#', icon: iconTikTok, name: 'TikTok' },
+  { href: '#', icon: iconWhatsapp, name: 'WhatsApp' },
 ];
 
 export const SocialLinks = () => {

@@ -77,9 +77,7 @@ export const LoginForm = () => {
         {isSubmitting ? 'Enviando ...' : 'Continuar'}
       </button>
 
-      {error && (
-        <p className="text-red-500 text-sm text-center">{error}</p>
-      )}
+      {error && <p className="text-red-500 text-sm text-center">{error}</p>}
     </form>
   );
 };

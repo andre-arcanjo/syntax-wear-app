@@ -1,6 +1,6 @@
 import { useNavigate } from '@tanstack/react-router';
 import { useAuth } from '../../context/AuthContext/AuthContext';
-import { useRegisterForm, type RegisterFormData } from './register-form.schema';
+import { useRegisterForm, type RegisterFormData } from '../../validator/register-form.schema';
 import { useState } from 'react';
 
 export const RegisterForm = () => {
@@ -146,7 +146,9 @@ export const RegisterForm = () => {
         {isSubmitting ? 'Enviando...' : 'Continuar'}
       </button>
 
-      {error && <p className="text-red-500 text-sm text-center mt-4">{error}</p>}
+      {error && (
+        <p className="text-red-500 text-sm text-center mt-4">{error}</p>
+      )}
     </form>
   );
 };

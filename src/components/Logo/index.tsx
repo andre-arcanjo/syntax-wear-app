@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router";
-import LogoImage from "../../assets/images/icons/logo.svg";
+import { Link } from '@tanstack/react-router';
+import LogoImage from '../../assets/images/icons/logo.svg';
 
 export const Logo = () => {
   return (

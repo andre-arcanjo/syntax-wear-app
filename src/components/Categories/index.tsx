@@ -1,6 +1,6 @@
-import { categories } from "../../mocks/categories";
-import { Button } from "../Button";
-import { useRouter } from "@tanstack/react-router";
+import { categories } from '../../mocks/categories';
+import { Button } from '../Button';
+import { useRouter } from '@tanstack/react-router';
 
 export const Categories = () => {
   const router = useRouter();
@@ -21,7 +21,7 @@ export const Categories = () => {
               variant="secondary"
               onClick={() =>
                 router.navigate({
-                  to: "/products/category/$category",
+                  to: '/products/category/$category',
                   params: { category: category.name.toLowerCase() },
                 })
               }

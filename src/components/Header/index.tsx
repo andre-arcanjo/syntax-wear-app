@@ -7,11 +7,7 @@ import { CartDrawer } from '../CartDrawer';
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext/AuthContext';
 import { PiSignOutLight } from 'react-icons/pi';
-
-export interface NavLink {
-  name: string;
-  href: string;
-}
+import type { NavLink } from '../../interfaces/link';
 
 const navLinks: NavLink[] = [
   { name: 'Masculino', href: '/products/category/masculino' },

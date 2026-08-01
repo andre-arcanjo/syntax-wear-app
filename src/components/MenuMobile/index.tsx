@@ -2,14 +2,10 @@ import { useState } from 'react';
 import IconMenu from '../../assets/images/icons/menu-icon.png';
 import { Link } from '@tanstack/react-router';
 import { FaRegUserCircle } from 'react-icons/fa';
-import type { NavLink } from '../Header';
 import { IoMdClose } from 'react-icons/io';
 import { useAuth } from '../../context/AuthContext/AuthContext';
 import { PiSignOutLight } from 'react-icons/pi';
-
-interface MenuMobileProps {
-  navLinks: NavLink[];
-}
+import type { MenuMobileProps } from '../../interfaces/menuMobile';
 
 export const MenuMobile = ({ navLinks }: MenuMobileProps) => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);

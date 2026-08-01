@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { useCEPForm } from "./cep-form.schema";
-import type { Address } from "../../interfaces/address";
-import { formatCurrency } from "../../utils/format-currency";
+import { useState } from 'react';
+import { useCEPForm } from '../../validator/cep-form.schema';
+import type { Address } from '../../interfaces/address';
+import { formatCurrency } from '../../utils/format-currency';
 
 const SHIPPING_BY_REGION: Record<string, number> = {
   Norte: 39.9,
   Nordeste: 29.9,
-  "Centro-Oeste": 24.9,
+  'Centro-Oeste': 24.9,
   Sudeste: 14.9,
   Sul: 19.9,
 };
@@ -25,21 +25,21 @@ export const CEPForm = () => {
       const data = await response.json();
 
       if (data.erro) {
-        setAddressError("CEP não encontrado.");
+        setAddressError('CEP não encontrado.');
         return;
       }
 
       const shippingCost = SHIPPING_BY_REGION[data.regiao];
 
       if (!shippingCost) {
-        setAddressError("Região não suportada para entrega.");
+        setAddressError('Região não suportada para entrega.');
         return;
       }
 
       setAddress({ ...data, shippingCost: shippingCost });
     } catch {
       setAddressError(
-        "Ocorreu um erro ao buscar o CEP. Tente novamente mais tarde.",
+        'Ocorreu um erro ao buscar o CEP. Tente novamente mais tarde.',
       );
     }
   };
@@ -51,8 +51,8 @@ export const CEPForm = () => {
           <input
             type="text"
             placeholder="Insira seu CEP"
-            className={`border border-border rouded-md p-3 ${errors.cep ? "border-error" : ""}`}
-            {...register("cep")}
+            className={`border border-border rouded-md p-3 ${errors.cep ? 'border-error' : ''}`}
+            {...register('cep')}
           />
           {errors.cep && (
             <span className="text-error text-sm mt-1">
@@ -65,7 +65,7 @@ export const CEPForm = () => {
           className="bg-black text-white py-3 px-6 rounded-md cursor-pointer hover:bg-gray-800 disabled:opacity-50"
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Calculando..." : "Calcular"}
+          {isSubmitting ? 'Calculando...' : 'Calcular'}
         </button>
       </form>
 
@@ -81,7 +81,7 @@ export const CEPForm = () => {
             <strong>Região:</strong> {address.regiao}
           </p>
           <p>
-            <strong>Custo de entrega:</strong>{" "}
+            <strong>Custo de entrega:</strong>{' '}
             {formatCurrency(address.shippingCost)}
           </p>
         </div>

@@ -1,16 +1,15 @@
-import banner from "../../assets/images/grid/card_imagem.jpg";
-import tenisRoxo from "../../assets/images/grid/card-tenis-roxo-e-verde.svg";
-import modelo from "../../assets/images/grid/card-modelo.svg";
-import tenisColorido from "../../assets/images/grid/card-tenis-colorido.svg";
-import tenisBrancoEPreto from "../../assets/images/grid/card-tenis-preto-azul.svg";
-import tenisCinza from "../../assets/images/grid/card-tenis-cinza.svg";
-import { Overlay } from "../Overlay";
-import { Button } from "../Button";
-import { useRouter } from "@tanstack/react-router";
+import banner from '../../assets/images/grid/card_imagem.jpg';
+import tenisRoxo from '../../assets/images/grid/card-tenis-roxo-e-verde.svg';
+import modelo from '../../assets/images/grid/card-modelo.svg';
+import tenisColorido from '../../assets/images/grid/card-tenis-colorido.svg';
+import tenisBrancoEPreto from '../../assets/images/grid/card-tenis-preto-azul.svg';
+import tenisCinza from '../../assets/images/grid/card-tenis-cinza.svg';
+import { Overlay } from '../Overlay';
+import { Button } from '../Button';
+import { useRouter } from '@tanstack/react-router';
 
 export const Gallery = () => {
-
-    const router = useRouter();
+  const router = useRouter();
 
   return (
     <section className="container grid grid-cols-12 gap-2.5 md:gap-7 mb-10">
@@ -26,8 +25,28 @@ export const Gallery = () => {
           subtitle="Estilo urbano com atitude"
           className="inset-0 justify-center absolute"
         >
-          <Button variant="secondary" onClick={() => router.navigate({ to: "/products/category/$category", params: { category: "feminino"},})}>Feminino</Button>
-          <Button variant="secondary" onClick={() => router.navigate({ to: "/products/category/$category", params: { category: "masculino"},})}>Masculino</Button>
+          <Button
+            variant="secondary"
+            onClick={() =>
+              router.navigate({
+                to: '/products/category/$category',
+                params: { category: 'feminino' },
+              })
+            }
+          >
+            Feminino
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={() =>
+              router.navigate({
+                to: '/products/category/$category',
+                params: { category: 'masculino' },
+              })
+            }
+          >
+            Masculino
+          </Button>
         </Overlay>
       </div>
 

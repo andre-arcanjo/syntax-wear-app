@@ -1,7 +1,7 @@
-import { Copyright } from "../Copyright";
-import { MenuItems } from "../MenuItems";
-import { SocialLinks } from "../SocialLinks";
-import { SubscriptionForm } from "../SubscriptionForm";
+import { Copyright } from '../Copyright';
+import { MenuItems } from '../MenuItems';
+import { SocialLinks } from '../SocialLinks';
+import { SubscriptionForm } from '../SubscriptionForm';
 
 export const Footer = () => {
   return (

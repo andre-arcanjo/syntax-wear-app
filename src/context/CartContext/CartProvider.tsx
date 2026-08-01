@@ -1,16 +1,9 @@
-import { useEffect, useState } from "react";
-import type { Product } from "../../interfaces/product";
-import { CartContext } from "./CartContext";
+import { useEffect, useState } from 'react';
+import type { Product, ProductCart } from '../../interfaces/product';
+import { CartContext } from './CartContext';
+import type { CartProviderProps } from '../../interfaces/cart';
 
-interface CartProviderProps {
-  children: React.ReactNode;
-}
-
-export interface ProductCart extends Product {
-  quantity: number;
-}
-
-const localStorageKey = "@SyntaxWear:cart";
+const localStorageKey = '@SyntaxWear:cart';
 
 export const CartProvider = ({ children }: CartProviderProps) => {
   const [cart, setCart] = useState<ProductCart[]>(() => {

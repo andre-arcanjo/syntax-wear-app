@@ -2,11 +2,7 @@ import { useContext } from "react";
 import { CartContext } from "../../context/CartContext/CartContext";
 import { formatCurrency } from "../../utils/format-currency";
 import { useRouter } from "@tanstack/react-router";
-
-interface CartDrawerProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import type { CartDrawerProps } from "../../interfaces/cart";
 
 export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
   const { cart, remove, increment, decrement } =
