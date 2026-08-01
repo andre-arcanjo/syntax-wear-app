@@ -2,14 +2,7 @@ import { useState } from 'react';
 import { useCEPForm } from '../../validator/cep-form.schema';
 import type { Address } from '../../interfaces/address';
 import { formatCurrency } from '../../utils/format-currency';
-
-const SHIPPING_BY_REGION: Record<string, number> = {
-  Norte: 39.9,
-  Nordeste: 29.9,
-  'Centro-Oeste': 24.9,
-  Sudeste: 14.9,
-  Sul: 19.9,
-};
+import { fetchCEP } from '../../services/CEPService';
 
 export const CEPForm = () => {
   const { register, handleSubmit, errors, isSubmitting } = useCEPForm();
@@ -21,23 +14,10 @@ export const CEPForm = () => {
     setAddress(null);
 
     try {
-      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-      const data = await response.json();
+      const data = await fetchCEP(cep)
 
-      if (data.erro) {
-        setAddressError('CEP não encontrado.');
-        return;
-      }
-
-      const shippingCost = SHIPPING_BY_REGION[data.regiao];
-
-      if (!shippingCost) {
-        setAddressError('Região não suportada para entrega.');
-        return;
-      }
-
-      setAddress({ ...data, shippingCost: shippingCost });
-    } catch {
+      setAddress(data);
+    } catch(error) {
       setAddressError(
         'Ocorreu um erro ao buscar o CEP. Tente novamente mais tarde.',
       );
@@ -78,7 +58,7 @@ export const CEPForm = () => {
       {address && (
         <div className="mt-4">
           <p>
-            <strong>Região:</strong> {address.regiao}
+            <strong>Região:</strong> {address.region}
           </p>
           <p>
             <strong>Custo de entrega:</strong>{' '}
