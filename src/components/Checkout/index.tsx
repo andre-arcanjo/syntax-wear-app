@@ -48,9 +48,20 @@ export const Checkout = () => {
           <div className="rounded-[30px] border border-border bg-white p-8 shadow-sm space-y-6">
             <h2 className="text-xl font-bold">Informe seu endereço</h2>
 
-            <input type="text" placeholder="CEP" value="cep" className="..." />
+            <div className="flex gap-3">
+              <input
+                type="text"
+                placeholder="CEP"
+                className="w-[45%] rounded-2xl border border-border bg-surface px-4 py-3 text-sm outline-none"
+              />
 
-            <button>Buscar</button>
+              <button
+                type="button"
+                className="rounded-2xl bg-black px-5 py-3 text-sm font-semibold text-white transition duration-200 ease-in-out hover:bg-[#494949] cursor-pointer"
+              >
+                Buscar
+              </button>
+            </div>
 
             <div className="space-y-4">
               <input
@@ -136,7 +147,7 @@ export const Checkout = () => {
 
               <button
                 type="button"
-                className="mt-6 w-full rounded-3xl bg-black py-4 text-sm font-semibold text-white transition hover:bg-[#111]"
+                className="mt-6 w-full rounded-3xl bg-black py-4 text-sm font-semibold text-white transition duration-200 ease-in-out hover:bg-[#494949] cursor-pointer"
               >
                 Fechar pedido
               </button>
