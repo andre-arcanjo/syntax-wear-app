@@ -1,21 +1,68 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { CartContext } from '../../context/CartContext/CartContext';
 import { formatCurrency } from '../../utils/format-currency';
 import { useAuth } from '../../context/AuthContext/AuthContext';
+import type { CEPResponse } from '../../interfaces/CEP';
+import { fetchCEP } from '../../services/CEPService';
 
 export const Checkout = () => {
   const { user } = useAuth();
 
   const { cart } = useContext(CartContext);
+  const [cep, setCep] = useState('');
+  const [address, setAddress] = useState<CEPResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoadingCep, setIsLoadingCep] = useState(false);
+  const [formAddress, setFormAddress] = useState({
+    street: '',
+    number: '',
+    complement: '',
+    neighborhood: '',
+    city: '',
+    state: '',
+  });
 
-  const totalProducts = cart.reduce((acc, price) => {
-    return acc + price.price;
+  const totalProducts = cart.reduce((acc, product) => {
+    return acc + product.price * product.quantity;
   }, 0);
 
+  const handleFetchCEP = async () => {
+    setError(null);
+    setIsLoadingCep(true);
+
+    setFormAddress((prev) => ({
+      ...prev,
+      street: '',
+      neighborhood: '',
+      city: '',
+      state: '',
+    }));
+
+    try {
+      const data = await fetchCEP(cep);
+      setAddress(data);
+
+      setFormAddress((prev) => ({
+        ...prev,
+        street: data.street || '',
+        neighborhood: data.neighborhood || '',
+        complement: data.complement || '',
+        city: data.city || '',
+        state: data.state || '',
+      }));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao buscar CEP');
+    } finally {
+      setIsLoadingCep(false);
+    }
+  };
+
+  const total = totalProducts + (address?.shippingCost || 0);
+
   return (
-    <div className="min-h-screen flex justify-center bg-[rgb(236,233,226)] text-black py-10">
-      <section className="flex justify-center items-center gap-20">
-        <div className="identificacao flex flex-col gap-10">
+    <div className="min-h-screen bg-[rgb(236,233,226)] px-4 py-6 text-black sm:px-6 lg:px-8 lg:py-10">
+      <section className="mx-auto flex w-full max-w-6xl flex-col gap-6 lg:flex-row lg:items-start lg:justify-center lg:gap-20">
+        <div className="identificacao flex w-full flex-col gap-6 lg:max-w-155 lg:gap-10">
           <div className="rounded-2xl bg-white flex flex-col  gap-3 py-4 px-3">
             <h2 className="text-xl font-bold">Identificação</h2>
 
@@ -48,25 +95,42 @@ export const Checkout = () => {
           <div className="rounded-[30px] border border-border bg-white p-8 shadow-sm space-y-6">
             <h2 className="text-xl font-bold">Informe seu endereço</h2>
 
-            <div className="flex gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row">
               <input
                 type="text"
                 placeholder="CEP"
-                className="w-[45%] rounded-2xl border border-border bg-surface px-4 py-3 text-sm outline-none"
+                value={cep}
+                onChange={(e) => setCep(e.target.value)}
+                className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm outline-none sm:w-[45%]"
               />
 
               <button
                 type="button"
-                className="rounded-2xl bg-black px-5 py-3 text-sm font-semibold text-white transition duration-200 ease-in-out hover:bg-[#494949] cursor-pointer"
+                onClick={handleFetchCEP}
+                disabled={isLoadingCep}
+                className="rounded-2xl bg-black px-5 py-3 text-sm font-semibold text-white transition duration-200 ease-in-out hover:bg-[#494949] cursor-pointer sm:w-auto"
               >
-                Buscar
+                {isLoadingCep ? 'Buscando...' : 'Buscar'}
               </button>
             </div>
+
+            {error && (
+              <p className="text-red-500 text-sm mt-2">
+                Não foi possível buscar o CEP, tente novamente.
+              </p>
+            )}
 
             <div className="space-y-4">
               <input
                 type="text"
                 placeholder="logradouro"
+                value={formAddress.street}
+                onChange={(e) =>
+                  setFormAddress((prev) => ({
+                    ...prev,
+                    street: e.target.value,
+                  }))
+                }
                 className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-black outline-none"
               />
 
@@ -74,11 +138,25 @@ export const Checkout = () => {
                 <input
                   type="text"
                   placeholder="número"
+                  value={formAddress.number}
+                  onChange={(e) =>
+                    setFormAddress((prev) => ({
+                      ...prev,
+                      number: e.target.value,
+                    }))
+                  }
                   className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-black outline-none"
                 />
                 <input
                   type="text"
                   placeholder="complemento"
+                  value={formAddress.complement}
+                  onChange={(e) =>
+                    setFormAddress((prev) => ({
+                      ...prev,
+                      complement: e.target.value,
+                    }))
+                  }
                   className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-black outline-none"
                 />
               </div>
@@ -86,6 +164,13 @@ export const Checkout = () => {
               <input
                 type="text"
                 placeholder="bairro"
+                value={formAddress.neighborhood}
+                onChange={(e) =>
+                  setFormAddress((prev) => ({
+                    ...prev,
+                    neighborhood: e.target.value,
+                  }))
+                }
                 className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-black outline-none"
               />
 
@@ -93,11 +178,25 @@ export const Checkout = () => {
                 <input
                   type="text"
                   placeholder="cidade"
+                  value={formAddress.city}
+                  onChange={(e) =>
+                    setFormAddress((prev) => ({
+                      ...prev,
+                      city: e.target.value,
+                    }))
+                  }
                   className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-black outline-none"
                 />
                 <input
                   type="text"
                   placeholder="estado"
+                  value={formAddress.state}
+                  onChange={(e) =>
+                    setFormAddress((prev) => ({
+                      ...prev,
+                      state: e.target.value,
+                    }))
+                  }
                   className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-black outline-none"
                 />
               </div>
@@ -105,29 +204,28 @@ export const Checkout = () => {
           </div>
         </div>
 
-        <aside className="space-y-6">
+        <aside className="w-full space-y-6 lg:max-w-105">
           <div className="rounded-[30px] border border-border bg-white p-6 shadow-sm">
             <h2 className="text-xl font-bold mb-6">Resumo do pedido</h2>
 
             <div className="space-y-4">
               {cart.map((product) => (
-                <>
-                  <div className="flex items-center gap-4 rounded-3xl border border-border bg-surface-alt p-4">
-                    <img
-                      src={product.images[0]}
-                      className="h-16 w-16 rounded-3xl"
-                    />
-                    <div className="flex-1">
-                      <p className="font-semibold">{product.name}</p>
-                      <p className="text-sm text-gray-text">
-                        {product.quantity}
-                      </p>
-                    </div>
-                    <span className="font-semibold">
-                      {formatCurrency(product.price)}
-                    </span>
+                <div
+                  key={product.id}
+                  className="flex items-center gap-4 rounded-3xl border border-border bg-surface-alt p-4"
+                >
+                  <img
+                    src={product.images[0]}
+                    className="h-16 w-16 rounded-3xl"
+                  />
+                  <div className="flex-1">
+                    <p className="font-semibold">{product.name}</p>
+                    <p className="text-sm text-gray-text">{product.quantity}</p>
                   </div>
-                </>
+                  <span className="font-semibold">
+                    {formatCurrency(product.price * product.quantity)}
+                  </span>
+                </div>
               ))}
 
               <div className="mt-6 space-y-3 border-t border-border pt-5">
@@ -137,11 +235,17 @@ export const Checkout = () => {
                 </div>
                 <div className="flex items-center justify-between text-sm text-gray-text">
                   <span>Frete</span>
-                  <span>A calcular</span>
+                  <span>
+                    <span>
+                      {address
+                        ? formatCurrency(address.shippingCost)
+                        : 'A calcular'}
+                    </span>
+                  </span>
                 </div>
                 <div className="flex items-center justify-between text-base font-semibold">
                   <span>Total</span>
-                  <span>{formatCurrency(totalProducts)}</span>
+                  <span>{formatCurrency(total)}</span>
                 </div>
               </div>
 

@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useCEPForm } from '../../validator/cep-form.schema';
-import type { Address } from '../../interfaces/address';
+import type { CEPResponse } from '../../interfaces/CEP';
 import { formatCurrency } from '../../utils/format-currency';
 import { fetchCEP } from '../../services/CEPService';
 
 export const CEPForm = () => {
   const { register, handleSubmit, errors, isSubmitting } = useCEPForm();
-  const [address, setAddress] = useState<Address | null>(null);
+  const [address, setAddress] = useState<CEPResponse | null>(null);
   const [addressError, setAddressError] = useState<string | null>(null);
 
   const onSubmit = async ({ cep }: { cep: string }) => {

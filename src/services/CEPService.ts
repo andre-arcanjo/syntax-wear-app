@@ -22,6 +22,9 @@ export const fetchCEP = async (cep: string) => {
     const shippingCost = SHIPPING_BY_REGION[data.regiao]
 
     return {
+        street: data.logradouro,
+        neighborhood: data.bairro,
+        complement: data.complemento,
         city: data.localidade,
         state: data.estado,
         region: data.regiao,
