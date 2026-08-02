@@ -26,7 +26,7 @@ export const fetchCEP = async (cep: string) => {
         neighborhood: data.bairro,
         complement: data.complemento,
         city: data.localidade,
-        state: data.estado,
+        state: data.uf,
         region: data.regiao,
         shippingCost
     }
