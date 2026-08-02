@@ -4,6 +4,7 @@ import { formatCurrency } from '../../utils/format-currency';
 import { useAuth } from '../../context/AuthContext/AuthContext';
 import type { CEPResponse } from '../../interfaces/CEP';
 import { fetchCEP } from '../../services/CEPService';
+import { createOrder } from "../../services/orderService";
 
 export const Checkout = () => {
   const { user } = useAuth();
@@ -11,6 +12,7 @@ export const Checkout = () => {
   const [cep, setCep] = useState('');
   const [address, setAddress] = useState<CEPResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [orderError, setOrderError] = useState<string | null>(null);
   const [isLoadingCep, setIsLoadingCep] = useState(false);
   const [formAddress, setFormAddress] = useState({
     cep: '',
@@ -21,6 +23,36 @@ export const Checkout = () => {
     city: '',
     state: '',
   });
+
+  const handleCreateOrder = async () => {
+  setOrderError(null);
+
+  try {
+    const payload = {
+      userId: user?.id ? Number(user.id) : undefined,
+
+      items: cart.map((product) => ({
+        productId: product.id,
+        quantity: product.quantity,
+      })),
+
+      shippingAddress: {
+        ...formAddress,
+        cep: cep.replace(/\D/g, ''),
+      },
+
+      paymentMethod: "PIX",
+    };
+
+    await createOrder(payload);
+
+  } catch (err) {
+    console.error(err);
+    setOrderError(
+      err instanceof Error ? err.message : 'Não foi possível fechar o pedido',
+    );
+  }
+};
 
   //função pra calcular total dos produtos no carrinho
   const totalProducts = cart.reduce((acc, product) => {
@@ -34,6 +66,7 @@ export const Checkout = () => {
 
     setFormAddress((prev) => ({
       ...prev,
+      cep: cep.replace(/\D/g, ''),
       street: '',
       neighborhood: '',
       city: '',
@@ -258,9 +291,15 @@ export const Checkout = () => {
               <button
                 type="button"
                 className="mt-6 w-full rounded-3xl bg-black py-4 text-sm font-semibold text-white transition duration-200 ease-in-out hover:bg-[#494949] cursor-pointer"
+                onClick={handleCreateOrder}
               >
                 Fechar pedido
               </button>
+              {orderError && (
+                <p className="text-sm text-red-500" role="alert">
+                  {orderError}
+                </p>
+              )}
             </div>
           </div>
         </aside>
