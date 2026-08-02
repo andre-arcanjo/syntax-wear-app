@@ -4,7 +4,8 @@ import { formatCurrency } from '../../utils/format-currency';
 import { useAuth } from '../../context/AuthContext/AuthContext';
 import type { CEPResponse } from '../../interfaces/CEP';
 import { fetchCEP } from '../../services/CEPService';
-import { createOrder } from "../../services/orderService";
+import { createOrder } from '../../services/orderService';
+import { CustomerInfo } from '../CustomerInfo';
 
 export const Checkout = () => {
   const { user } = useAuth();
@@ -25,34 +26,33 @@ export const Checkout = () => {
   });
 
   const handleCreateOrder = async () => {
-  setOrderError(null);
+    setOrderError(null);
 
-  try {
-    const payload = {
-      userId: user?.id ? Number(user.id) : undefined,
+    try {
+      const payload = {
+        userId: user?.id ? Number(user.id) : undefined,
 
-      items: cart.map((product) => ({
-        productId: product.id,
-        quantity: product.quantity,
-      })),
+        items: cart.map((product) => ({
+          productId: product.id,
+          quantity: product.quantity,
+        })),
 
-      shippingAddress: {
-        ...formAddress,
-        cep: cep.replace(/\D/g, ''),
-      },
+        shippingAddress: {
+          ...formAddress,
+          cep: cep.replace(/\D/g, ''),
+        },
 
-      paymentMethod: "PIX",
-    };
+        paymentMethod: 'PIX',
+      };
 
-    await createOrder(payload);
-
-  } catch (err) {
-    console.error(err);
-    setOrderError(
-      err instanceof Error ? err.message : 'Não foi possível fechar o pedido',
-    );
-  }
-};
+      await createOrder(payload);
+    } catch (err) {
+      console.error(err);
+      setOrderError(
+        err instanceof Error ? err.message : 'Não foi possível fechar o pedido',
+      );
+    }
+  };
 
   //função pra calcular total dos produtos no carrinho
   const totalProducts = cart.reduce((acc, product) => {
@@ -99,36 +99,8 @@ export const Checkout = () => {
   return (
     <div className="min-h-screen lg:flex lg:items-center bg-[rgb(236,233,226)] px-4 py-6 text-black sm:px-6 lg:px-8 lg:py-10">
       <section className="mx-auto my-25 flex w-full max-w-6xl flex-col gap-6 lg:flex-row lg:items-start lg:justify-center lg:gap-20">
-        {/* div identificação */}
         <div className="flex w-full flex-col gap-6 lg:max-w-155 lg:gap-10">
-          <div className="rounded-2xl bg-white flex flex-col  gap-3 py-4 px-3">
-            <h2 className="text-xl font-bold">Identificação</h2>
-
-            <div className="rounded-[28px]">
-              <p className="text-sm text-[#C5C5C5]">{user?.email}</p>
-              <p className="text-sm text-[#C5C5C5]">{user?.firstName}</p>
-
-              <div className="flex gap-4 rounded-2xl bg-[#F5F5F7] p-4">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white text-sm">
-                  !
-                </span>
-                <div className="space-y-1">
-                  <p className="text-sm text-black">
-                    Antes de continuar, verifique se o telefone para contato
-                    está correto.
-                  </p>
-                  <p className="text-sm font-semibold">{user?.phone}</p>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                className="text-sm font-semibold text-[#339CF1] hover:underline"
-              >
-                editar telefone
-              </button>
-            </div>
-          </div>
+          <CustomerInfo />
 
           {/* formulario de endereço */}
           <div className="rounded-[30px] border border-border bg-white p-8 shadow-sm space-y-6">
