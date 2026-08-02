@@ -7,13 +7,13 @@ import { fetchCEP } from '../../services/CEPService';
 
 export const Checkout = () => {
   const { user } = useAuth();
-
   const { cart } = useContext(CartContext);
   const [cep, setCep] = useState('');
   const [address, setAddress] = useState<CEPResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoadingCep, setIsLoadingCep] = useState(false);
   const [formAddress, setFormAddress] = useState({
+    cep: '',
     street: '',
     number: '',
     complement: '',
@@ -22,10 +22,12 @@ export const Checkout = () => {
     state: '',
   });
 
+  //função pra calcular total dos produtos no carrinho
   const totalProducts = cart.reduce((acc, product) => {
     return acc + product.price * product.quantity;
   }, 0);
 
+  // função pra buscar o cep e resetar informações de endereço
   const handleFetchCEP = async () => {
     setError(null);
     setIsLoadingCep(true);
@@ -42,6 +44,7 @@ export const Checkout = () => {
       const data = await fetchCEP(cep);
       setAddress(data);
 
+      // se tem data.street, preencher conforme a API, se não, input vazio
       setFormAddress((prev) => ({
         ...prev,
         street: data.street || '',
@@ -57,12 +60,14 @@ export const Checkout = () => {
     }
   };
 
+  // funcão pra calcular total geral
   const total = totalProducts + (address?.shippingCost || 0);
 
   return (
-    <div className="min-h-screen bg-[rgb(236,233,226)] px-4 py-6 text-black sm:px-6 lg:px-8 lg:py-10">
-      <section className="mx-auto flex w-full max-w-6xl flex-col gap-6 lg:flex-row lg:items-start lg:justify-center lg:gap-20">
-        <div className="identificacao flex w-full flex-col gap-6 lg:max-w-155 lg:gap-10">
+    <div className="min-h-screen lg:flex lg:items-center bg-[rgb(236,233,226)] px-4 py-6 text-black sm:px-6 lg:px-8 lg:py-10">
+      <section className="mx-auto my-25 flex w-full max-w-6xl flex-col gap-6 lg:flex-row lg:items-start lg:justify-center lg:gap-20">
+        {/* div identificação */}
+        <div className="flex w-full flex-col gap-6 lg:max-w-155 lg:gap-10">
           <div className="rounded-2xl bg-white flex flex-col  gap-3 py-4 px-3">
             <h2 className="text-xl font-bold">Identificação</h2>
 
@@ -92,6 +97,7 @@ export const Checkout = () => {
             </div>
           </div>
 
+          {/* formulario de endereço */}
           <div className="rounded-[30px] border border-border bg-white p-8 shadow-sm space-y-6">
             <h2 className="text-xl font-bold">Informe seu endereço</h2>
 

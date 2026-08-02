@@ -78,13 +78,13 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
             ))}
           </ul>
 
-          <footer className="absolute bottom-0 w-full h-25 p-4">
+          <div className="absolute bottom-0 w-full h-25 p-4">
             <button className="w-full h-full bg-black text-white rounded-xs cursor-pointer hover:bg-gray-800" onClick={() => router.navigate({
               to:"/checkout"
             })}>
               Fechar pedido
             </button>
-          </footer>
+          </div>
         </div>
       </div>
     </>

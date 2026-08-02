@@ -1,4 +1,4 @@
-import { Outlet, createFileRoute } from "@tanstack/react-router";
+import { Outlet, createFileRoute, useLocation } from "@tanstack/react-router";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 
@@ -7,11 +7,14 @@ export const Route = createFileRoute("/_app")({
 });
 
 function AppLayout() {
+  const location = useLocation();
+  const isCheckoutRoute = location.pathname.includes("/checkout");
+
   return (
     <div>
       <Header />
       <Outlet />
-      <Footer />
+      {!isCheckoutRoute && <Footer />}
     </div>
   );
 }
