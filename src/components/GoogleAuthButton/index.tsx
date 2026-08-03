@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext/AuthContext';
-import { useNavigate } from '@tanstack/react-router';
+import { useSearch } from '@tanstack/react-router';
 import { GoogleLogin, type CredentialResponse } from '@react-oauth/google';
+import { getSafeAuthRedirect } from '../../utils/auth-redirect';
 
 export const GoogleAuthButton = () => {
   const [googleError, setGoogleError] = useState<string | null>(null);
   const [, setIsLoadingGoogle] = useState<boolean>(false);
   const { signInWithGoogle } = useAuth();
-  const navigate = useNavigate();
+  const { redirect } = useSearch({ from: '/_auth/sign-in' });
 
   const handleGoogleSuccess = async (
     credentialResponse: CredentialResponse,
@@ -25,7 +26,7 @@ export const GoogleAuthButton = () => {
 
     try {
       await signInWithGoogle(credential);
-      navigate({ to: '/' });
+      window.location.replace(getSafeAuthRedirect(redirect));
     } catch (error) {
       let errorMessage = 'Erro ao fazer login com Google. Tente novamente.';
 
@@ -37,9 +38,6 @@ export const GoogleAuthButton = () => {
     } finally {
       setIsLoadingGoogle(false);
     }
-
-    await signInWithGoogle(credential);
-    navigate({ to: '/' });
   };
 
   const handleGoogleError = (): void => {

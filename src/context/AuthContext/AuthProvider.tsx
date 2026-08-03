@@ -13,6 +13,7 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isLoadingAuth, setIsLoadingAuth] = useState(true);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -33,6 +34,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         console.error('Erro ao buscar perfil do usuário:', error);
         setUser(null);
         setIsAuthenticated(false);
+      } finally {
+        setIsLoadingAuth(false);
       }
     };
 
@@ -115,6 +118,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const value = {
     user,
     isAuthenticated,
+    isLoadingAuth,
     signIn,
     signUp,
     signOut,

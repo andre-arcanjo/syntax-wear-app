@@ -1,10 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { Checkout } from '../../../components/Checkout';
+import { ProtectedCheckout } from '../../../components/ProtectedCheckout';
 
 export const Route = createFileRoute('/_app/checkout/')({
-  component: RouteComponent,
+  component: ProtectedCheckout,
 });
-
-function RouteComponent() {
-  return <Checkout />;
-}

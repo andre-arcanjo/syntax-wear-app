@@ -3,7 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/AuthContext/AuthContext';
 import { useState } from 'react';
-import { useNavigate } from '@tanstack/react-router';
+import { useSearch } from '@tanstack/react-router';
+import { getSafeAuthRedirect } from '../../utils/auth-redirect';
 
 export const LoginForm = () => {
   const [error, setError] = useState<string | null>(null);
@@ -11,7 +12,7 @@ export const LoginForm = () => {
 
   const { signIn } = useAuth();
 
-  const navigate = useNavigate();
+  const { redirect } = useSearch({ from: '/_auth/sign-in' });
 
   const signIFormSchema = z.object({
     email: z.email('E-mail inválido'),
@@ -33,7 +34,7 @@ export const LoginForm = () => {
 
     try {
       await signIn(data);
-      navigate({ to: '/' });
+      window.location.replace(getSafeAuthRedirect(redirect));
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);

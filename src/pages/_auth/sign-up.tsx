@@ -23,7 +23,11 @@ function RouteComponent() {
 
         <p className="text-sm text-gray-600 mt-6 text-center">
           Já tem uma conta?{' '}
-          <Link to="/sign-in" className="ml-1 text-accent hover:underline">
+            <Link
+              to="/sign-in"
+              search={{ redirect: undefined }}
+              className="ml-1 text-accent hover:underline"
+            >
             Entrar
           </Link>
         </p>

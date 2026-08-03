@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { OrderSuccess } from '../../../components/OrderSuccess';
+import { ProtectedOrderSuccess } from '../../../components/ProtectedOrderSuccess';
 
 export const Route = createFileRoute('/_app/order-success/$orderId')({
-  component: OrderSuccess,
+  component: ProtectedOrderSuccess,
   head: () => ({
     meta: [{ title: 'Pedido confirmado - SyntaxWear' }],
   }),

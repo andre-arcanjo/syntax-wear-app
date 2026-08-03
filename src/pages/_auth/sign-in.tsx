@@ -5,6 +5,9 @@ import { Separator } from '../../components/Separator';
 import { GoogleAuthButton } from '../../components/GoogleAuthButton';
 
 export const Route = createFileRoute('/_auth/sign-in')({
+  validateSearch: (search: Record<string, unknown>) => ({
+    redirect: typeof search.redirect === 'string' ? search.redirect : undefined,
+  }),
   component: RouteComponent,
   head: () => ({
     meta: [{ title: 'Login - SyntaxWear' }],

@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { OrdersPage } from '../../../components/OrdersPage';
+import { ProtectedOrdersPage } from '../../../components/ProtectedOrdersPage';
 
 export const Route = createFileRoute('/_app/orders/')({
-  component: OrdersPage,
+  component: ProtectedOrdersPage,
   head: () => ({
     meta: [{ title: 'Meus pedidos - SyntaxWear' }],
   }),

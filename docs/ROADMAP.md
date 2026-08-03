@@ -335,7 +335,7 @@ Estas tarefas agregam valor, mas não devem atrasar a publicação do portfólio
 ### Marco 1 — Aplicação segura
 
 - [x] Criar `GET /orders/me`.
-- [ ] Proteger rotas privadas.
+- [x] Proteger rotas privadas.
 - [ ] Revisar autorização de pedidos.
 - [ ] Corrigir status HTTP e mensagens de erro.
 - [ ] Garantir persistência da sessão em todos os métodos de login.

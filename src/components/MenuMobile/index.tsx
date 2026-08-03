@@ -39,7 +39,11 @@ export const MenuMobile = ({ navLinks }: MenuMobileProps) => {
         >
           <header className="bg-black py-5 px-5 text-white">
             <nav className="flex justify-between">
-              <Link to="/sign-in" className="flex items-center gap-3">
+              <Link
+                to="/sign-in"
+                search={{ redirect: undefined }}
+                className="flex items-center gap-3"
+              >
                 <FaRegUserCircle className="h-6 w-6" />
                 {isAuthenticated ? (
                   <p>Olá, {user?.firstName}</p>
