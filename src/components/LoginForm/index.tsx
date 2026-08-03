@@ -3,16 +3,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../context/AuthContext/AuthContext';
 import { useState } from 'react';
-import { useSearch } from '@tanstack/react-router';
 import { getSafeAuthRedirect } from '../../utils/auth-redirect';
 
-export const LoginForm = () => {
+interface LoginFormProps {
+  redirect?: string;
+}
+
+export const LoginForm = ({ redirect }: LoginFormProps) => {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { signIn } = useAuth();
-
-  const { redirect } = useSearch({ from: '/_auth/sign-in' });
 
   const signIFormSchema = z.object({
     email: z.email('E-mail inválido'),

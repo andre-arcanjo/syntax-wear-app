@@ -15,6 +15,8 @@ export const Route = createFileRoute('/_auth/sign-in')({
 });
 
 function RouteComponent() {
+  const { redirect } = Route.useSearch();
+
   return (
     <section className="text-black bg-surface h-screen w-full flex justify-center items-center p-5">
       <div className="w-112.5 bg-white rounded-[18px] p-10 shadow-md">
@@ -25,10 +27,10 @@ function RouteComponent() {
 
           <p className="mb-3.5">Escolha como você gostaria de fazer login</p>
 
-          <GoogleAuthButton />
+          <GoogleAuthButton redirect={redirect} />
 
           <Separator />
-          <LoginForm />
+          <LoginForm redirect={redirect} />
 
           <p className="mt-3.5 text-center">
             Ainda não possui conta?

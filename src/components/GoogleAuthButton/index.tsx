@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext/AuthContext';
-import { useSearch } from '@tanstack/react-router';
 import { GoogleLogin, type CredentialResponse } from '@react-oauth/google';
 import { getSafeAuthRedirect } from '../../utils/auth-redirect';
 
-export const GoogleAuthButton = () => {
+interface GoogleAuthButtonProps {
+  redirect?: string;
+}
+
+export const GoogleAuthButton = ({ redirect }: GoogleAuthButtonProps) => {
   const [googleError, setGoogleError] = useState<string | null>(null);
   const [, setIsLoadingGoogle] = useState<boolean>(false);
   const { signInWithGoogle } = useAuth();
-  const { redirect } = useSearch({ from: '/_auth/sign-in' });
-
   const handleGoogleSuccess = async (
     credentialResponse: CredentialResponse,
   ): Promise<void> => {
