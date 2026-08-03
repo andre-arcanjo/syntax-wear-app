@@ -89,7 +89,7 @@ export const getOrders = async (
   limit = 10,
 ): Promise<OrdersResponse> => {
   const response = await fetch(
-    `http://localhost:3000/orders?page=${page}&limit=${limit}`,
+    `http://localhost:3000/orders/me?page=${page}&limit=${limit}`,
     { credentials: 'include' },
   );
 
