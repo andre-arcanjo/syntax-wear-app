@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { useNavigate } from '@tanstack/react-router';
 import { useAuth } from '../../context/AuthContext/AuthContext';
 import { CartContext } from '../../context/CartContext/CartContext';
 import { fetchCEP } from '../../services/CEPService';
@@ -16,8 +17,9 @@ const initialAddress: ShippingAddress = {
 };
 
 export const useCheckout = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
-  const { cart } = useContext(CartContext);
+  const { cart, clearCart } = useContext(CartContext);
   const [cep, setCep] = useState('');
   const [address, setAddress] = useState<ShippingAddress>(initialAddress);
   const [shippingCost, setShippingCost] = useState<number | null>(null);
@@ -81,7 +83,7 @@ export const useCheckout = () => {
     setIsSubmitting(true);
 
     try {
-      await createOrder({
+      const createdOrder = await createOrder({
         userId: user?.id ? Number(user.id) : undefined,
         items: cart.map((product) => ({
           productId: product.id,
@@ -89,6 +91,12 @@ export const useCheckout = () => {
         })),
         shippingAddress: address,
         paymentMethod: 'PIX',
+      });
+
+      clearCart();
+      await navigate({
+        to: '/order-success/$orderId',
+        params: { orderId: String(createdOrder.orderId) },
       });
     } catch (error) {
       console.error(error);

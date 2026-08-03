@@ -15,4 +15,5 @@ export interface CartContextType {
   remove: (productId: number) => void;
   increment: (product: ProductCart) => void;
   decrement: (product: ProductCart) => void;
+  clearCart: () => void;
 }

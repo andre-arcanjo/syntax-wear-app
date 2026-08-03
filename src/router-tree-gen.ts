@@ -15,9 +15,11 @@ import { Route as AuthSignUpRouteImport } from './pages/_auth/sign-up'
 import { Route as AuthSignInRouteImport } from './pages/_auth/sign-in'
 import { Route as AppProductsIndexRouteImport } from './pages/_app/products/index'
 import { Route as AppOurStoresIndexRouteImport } from './pages/_app/our-stores/index'
+import { Route as AppOrdersIndexRouteImport } from './pages/_app/orders/index'
 import { Route as AppCheckoutIndexRouteImport } from './pages/_app/checkout/index'
 import { Route as AppAboutIndexRouteImport } from './pages/_app/about/index'
 import { Route as AppProductsProductIdRouteImport } from './pages/_app/products/$productId'
+import { Route as AppOrderSuccessOrderIdRouteImport } from './pages/_app/order-success/$orderId'
 import { Route as AppProductsCategoryCategoryRouteImport } from './pages/_app/products/category/$category'
 
 const AppLayoutRoute = AppLayoutRouteImport.update({
@@ -49,6 +51,11 @@ const AppOurStoresIndexRoute = AppOurStoresIndexRouteImport.update({
   path: '/our-stores/',
   getParentRoute: () => AppLayoutRoute,
 } as any)
+const AppOrdersIndexRoute = AppOrdersIndexRouteImport.update({
+  id: '/orders/',
+  path: '/orders/',
+  getParentRoute: () => AppLayoutRoute,
+} as any)
 const AppCheckoutIndexRoute = AppCheckoutIndexRouteImport.update({
   id: '/checkout/',
   path: '/checkout/',
@@ -64,6 +71,11 @@ const AppProductsProductIdRoute = AppProductsProductIdRouteImport.update({
   path: '/products/$productId',
   getParentRoute: () => AppLayoutRoute,
 } as any)
+const AppOrderSuccessOrderIdRoute = AppOrderSuccessOrderIdRouteImport.update({
+  id: '/order-success/$orderId',
+  path: '/order-success/$orderId',
+  getParentRoute: () => AppLayoutRoute,
+} as any)
 const AppProductsCategoryCategoryRoute =
   AppProductsCategoryCategoryRouteImport.update({
     id: '/products/category/$category',
@@ -75,9 +87,11 @@ export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
+  '/order-success/$orderId': typeof AppOrderSuccessOrderIdRoute
   '/products/$productId': typeof AppProductsProductIdRoute
   '/about/': typeof AppAboutIndexRoute
   '/checkout/': typeof AppCheckoutIndexRoute
+  '/orders/': typeof AppOrdersIndexRoute
   '/our-stores/': typeof AppOurStoresIndexRoute
   '/products/': typeof AppProductsIndexRoute
   '/products/category/$category': typeof AppProductsCategoryCategoryRoute
@@ -86,9 +100,11 @@ export interface FileRoutesByTo {
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
   '/': typeof AppIndexRoute
+  '/order-success/$orderId': typeof AppOrderSuccessOrderIdRoute
   '/products/$productId': typeof AppProductsProductIdRoute
   '/about': typeof AppAboutIndexRoute
   '/checkout': typeof AppCheckoutIndexRoute
+  '/orders': typeof AppOrdersIndexRoute
   '/our-stores': typeof AppOurStoresIndexRoute
   '/products': typeof AppProductsIndexRoute
   '/products/category/$category': typeof AppProductsCategoryCategoryRoute
@@ -99,9 +115,11 @@ export interface FileRoutesById {
   '/_auth/sign-in': typeof AuthSignInRoute
   '/_auth/sign-up': typeof AuthSignUpRoute
   '/_app/': typeof AppIndexRoute
+  '/_app/order-success/$orderId': typeof AppOrderSuccessOrderIdRoute
   '/_app/products/$productId': typeof AppProductsProductIdRoute
   '/_app/about/': typeof AppAboutIndexRoute
   '/_app/checkout/': typeof AppCheckoutIndexRoute
+  '/_app/orders/': typeof AppOrdersIndexRoute
   '/_app/our-stores/': typeof AppOurStoresIndexRoute
   '/_app/products/': typeof AppProductsIndexRoute
   '/_app/products/category/$category': typeof AppProductsCategoryCategoryRoute
@@ -112,9 +130,11 @@ export interface FileRouteTypes {
     | '/'
     | '/sign-in'
     | '/sign-up'
+    | '/order-success/$orderId'
     | '/products/$productId'
     | '/about/'
     | '/checkout/'
+    | '/orders/'
     | '/our-stores/'
     | '/products/'
     | '/products/category/$category'
@@ -123,9 +143,11 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/'
+    | '/order-success/$orderId'
     | '/products/$productId'
     | '/about'
     | '/checkout'
+    | '/orders'
     | '/our-stores'
     | '/products'
     | '/products/category/$category'
@@ -135,9 +157,11 @@ export interface FileRouteTypes {
     | '/_auth/sign-in'
     | '/_auth/sign-up'
     | '/_app/'
+    | '/_app/order-success/$orderId'
     | '/_app/products/$productId'
     | '/_app/about/'
     | '/_app/checkout/'
+    | '/_app/orders/'
     | '/_app/our-stores/'
     | '/_app/products/'
     | '/_app/products/category/$category'
@@ -193,6 +217,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppOurStoresIndexRouteImport
       parentRoute: typeof AppLayoutRoute
     }
+    '/_app/orders/': {
+      id: '/_app/orders/'
+      path: '/orders'
+      fullPath: '/orders/'
+      preLoaderRoute: typeof AppOrdersIndexRouteImport
+      parentRoute: typeof AppLayoutRoute
+    }
     '/_app/checkout/': {
       id: '/_app/checkout/'
       path: '/checkout'
@@ -214,6 +245,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProductsProductIdRouteImport
       parentRoute: typeof AppLayoutRoute
     }
+    '/_app/order-success/$orderId': {
+      id: '/_app/order-success/$orderId'
+      path: '/order-success/$orderId'
+      fullPath: '/order-success/$orderId'
+      preLoaderRoute: typeof AppOrderSuccessOrderIdRouteImport
+      parentRoute: typeof AppLayoutRoute
+    }
     '/_app/products/category/$category': {
       id: '/_app/products/category/$category'
       path: '/products/category/$category'
@@ -226,9 +264,11 @@ declare module '@tanstack/react-router' {
 
 interface AppLayoutRouteChildren {
   AppIndexRoute: typeof AppIndexRoute
+  AppOrderSuccessOrderIdRoute: typeof AppOrderSuccessOrderIdRoute
   AppProductsProductIdRoute: typeof AppProductsProductIdRoute
   AppAboutIndexRoute: typeof AppAboutIndexRoute
   AppCheckoutIndexRoute: typeof AppCheckoutIndexRoute
+  AppOrdersIndexRoute: typeof AppOrdersIndexRoute
   AppOurStoresIndexRoute: typeof AppOurStoresIndexRoute
   AppProductsIndexRoute: typeof AppProductsIndexRoute
   AppProductsCategoryCategoryRoute: typeof AppProductsCategoryCategoryRoute
@@ -236,9 +276,11 @@ interface AppLayoutRouteChildren {
 
 const AppLayoutRouteChildren: AppLayoutRouteChildren = {
   AppIndexRoute: AppIndexRoute,
+  AppOrderSuccessOrderIdRoute: AppOrderSuccessOrderIdRoute,
   AppProductsProductIdRoute: AppProductsProductIdRoute,
   AppAboutIndexRoute: AppAboutIndexRoute,
   AppCheckoutIndexRoute: AppCheckoutIndexRoute,
+  AppOrdersIndexRoute: AppOrdersIndexRoute,
   AppOurStoresIndexRoute: AppOurStoresIndexRoute,
   AppProductsIndexRoute: AppProductsIndexRoute,
   AppProductsCategoryCategoryRoute: AppProductsCategoryCategoryRoute,

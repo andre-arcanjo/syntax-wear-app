@@ -19,7 +19,14 @@ interface CreateOrderRequest {
   paymentMethod: string;
 }
 
-export const createOrder = async (data: CreateOrderRequest) => {
+interface CreateOrderResponse {
+  message: string;
+  orderId: number;
+}
+
+export const createOrder = async (
+  data: CreateOrderRequest,
+): Promise<CreateOrderResponse> => {
   const response = await fetch("http://localhost:3000/orders", {
     method: "POST",
     credentials: 'include',

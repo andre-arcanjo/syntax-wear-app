@@ -5,5 +5,5 @@ export interface ShippingAddress {
   complement: string;
   neighborhood: string;
   city: string;
-  uf: string;
+  state: string;
 }
