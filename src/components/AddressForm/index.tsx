@@ -1,106 +1,137 @@
-import type { ShippingAddress } from '../Checkout/types';
+import type {
+  FieldErrors,
+  UseFormRegister,
+} from 'react-hook-form';
+import type { ShippingAddress } from '../Checkout/checkoutSchema';
 
 interface AddressFormProps {
-  cep: string;
-  address: ShippingAddress;
-  error: string | null;
+  errors: FieldErrors<ShippingAddress>;
   isLoadingCep: boolean;
-  onCepChange: (cep: string) => void;
-  onAddressChange: (field: keyof ShippingAddress, value: string) => void;
+  cepError: string | null;
+  register: UseFormRegister<ShippingAddress>;
   onFetchCep: () => Promise<void>;
 }
 
+const inputClassName =
+  'w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-black outline-none';
+
 export const AddressForm = ({
-  cep,
-  address,
-  error,
+  errors,
   isLoadingCep,
-  onCepChange,
-  onAddressChange,
+  cepError,
+  register,
   onFetchCep,
 }: AddressFormProps) => {
   return (
     <div className="rounded-[30px] border border-border bg-white p-8 shadow-sm space-y-6">
       <h2 className="text-xl font-bold">Informe seu endereço</h2>
 
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <input
-          type="text"
-          placeholder="CEP"
-          value={cep}
-          onChange={(event) => onCepChange(event.target.value)}
-          className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm outline-none sm:w-[45%]"
-        />
-
-        <button
-          type="button"
-          onClick={onFetchCep}
-          disabled={isLoadingCep}
-          className="rounded-2xl bg-black px-5 py-3 text-sm font-semibold text-white transition duration-200 ease-in-out hover:bg-[#494949] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer sm:w-auto"
-        >
-          {isLoadingCep ? 'Buscando...' : 'Buscar'}
-        </button>
+      <div>
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <input
+            type="text"
+            placeholder="CEP"
+            {...register('cep')}
+            aria-invalid={Boolean(errors.cep)}
+            className={`${inputClassName} sm:w-[45%]`}
+          />
+          <button
+            type="button"
+            onClick={onFetchCep}
+            disabled={isLoadingCep}
+            className="rounded-2xl bg-black px-5 py-3 text-sm font-semibold text-white transition duration-200 ease-in-out hover:bg-[#494949] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer sm:w-auto"
+          >
+            {isLoadingCep ? 'Buscando...' : 'Buscar'}
+          </button>
+        </div>
+        {errors.cep && (
+          <p className="mt-1 text-sm text-red-500">{errors.cep.message}</p>
+        )}
+        {cepError && (
+          <p className="mt-1 text-sm text-red-500" role="alert">
+            {cepError}
+          </p>
+        )}
       </div>
 
-      {error && (
-        <p className="text-red-500 text-sm mt-2" role="alert">
-          {error}
-        </p>
-      )}
-
       <div className="space-y-4">
-        <input
-          type="text"
-          placeholder="logradouro"
-          value={address.street}
-          onChange={(event) => onAddressChange('street', event.target.value)}
-          className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-black outline-none"
-        />
-
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div>
           <input
             type="text"
-            placeholder="número"
-            value={address.number}
-            onChange={(event) => onAddressChange('number', event.target.value)}
-            className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-black outline-none"
+            placeholder="logradouro"
+            {...register('street')}
+            aria-invalid={Boolean(errors.street)}
+            className={inputClassName}
           />
-          <input
-            type="text"
-            placeholder="complemento"
-            value={address.complement}
-            onChange={(event) =>
-              onAddressChange('complement', event.target.value)
-            }
-            className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-black outline-none"
-          />
+          {errors.street && (
+            <p className="mt-1 text-sm text-red-500">{errors.street.message}</p>
+          )}
         </div>
 
-        <input
-          type="text"
-          placeholder="bairro"
-          value={address.neighborhood}
-          onChange={(event) =>
-            onAddressChange('neighborhood', event.target.value)
-          }
-          className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-black outline-none"
-        />
+        <div className="grid gap-3 sm:grid-cols-2">
+          <div>
+            <input
+              type="text"
+              placeholder="número"
+              {...register('number')}
+              aria-invalid={Boolean(errors.number)}
+              className={inputClassName}
+            />
+            {errors.number && (
+              <p className="mt-1 text-sm text-red-500">{errors.number.message}</p>
+            )}
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="complemento"
+              {...register('complement')}
+              className={inputClassName}
+            />
+          </div>
+        </div>
+
+        <div>
+          <input
+            type="text"
+            placeholder="bairro"
+            {...register('neighborhood')}
+            aria-invalid={Boolean(errors.neighborhood)}
+            className={inputClassName}
+          />
+          {errors.neighborhood && (
+            <p className="mt-1 text-sm text-red-500">
+              {errors.neighborhood.message}
+            </p>
+          )}
+        </div>
 
         <div className="grid gap-3 sm:grid-cols-2">
-          <input
-            type="text"
-            placeholder="cidade"
-            value={address.city}
-            onChange={(event) => onAddressChange('city', event.target.value)}
-            className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-black outline-none"
-          />
-          <input
-            type="text"
-            placeholder="UF"
-            value={address.state}
-            onChange={(event) => onAddressChange('state', event.target.value)}
-            className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-black outline-none"
-          />
+          <div>
+            <input
+              type="text"
+              placeholder="cidade"
+              {...register('city')}
+              aria-invalid={Boolean(errors.city)}
+              className={inputClassName}
+            />
+            {errors.city && (
+              <p className="mt-1 text-sm text-red-500">{errors.city.message}</p>
+            )}
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="UF"
+              maxLength={2}
+              {...register('state')}
+              aria-invalid={Boolean(errors.state)}
+              className={inputClassName}
+            />
+            {errors.state && (
+              <p className="mt-1 text-sm text-red-500">{errors.state.message}</p>
+            )}
+          </div>
         </div>
       </div>
     </div>

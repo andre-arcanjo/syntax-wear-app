@@ -8,7 +8,6 @@ interface OrderProps {
   total: number;
   error: string | null;
   isSubmitting: boolean;
-  onSubmit: () => Promise<void>;
 }
 
 export const Order = ({
@@ -18,7 +17,6 @@ export const Order = ({
   total,
   error,
   isSubmitting,
-  onSubmit,
 }: OrderProps) => {
   return (
     <aside className="w-full space-y-6 lg:max-w-105">
@@ -66,9 +64,8 @@ export const Order = ({
           </div>
 
           <button
-            type="button"
+            type="submit"
             className="mt-6 w-full rounded-3xl bg-black py-4 text-sm font-semibold text-white transition duration-200 ease-in-out hover:bg-[#494949] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
-            onClick={onSubmit}
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Fechando pedido...' : 'Fechar pedido'}

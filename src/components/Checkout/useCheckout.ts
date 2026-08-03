@@ -1,10 +1,12 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, type FormEvent } from 'react';
 import { useNavigate } from '@tanstack/react-router';
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { CartContext } from '../../context/CartContext/CartContext';
 import { useAuth } from '../../context/AuthContext/AuthContext';
 import { fetchCEP } from '../../services/CEPService';
 import { createOrder } from '../../services/orderService';
-import type { ShippingAddress } from './types';
+import { checkoutSchema, type ShippingAddress } from './checkoutSchema';
 
 const initialAddress: ShippingAddress = {
   cep: '',
@@ -20,13 +22,24 @@ export const useCheckout = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const { cart, clearCart } = useContext(CartContext);
-  const [cep, setCep] = useState('');
-  const [address, setAddress] = useState<ShippingAddress>(initialAddress);
   const [shippingCost, setShippingCost] = useState<number | null>(null);
   const [cepError, setCepError] = useState<string | null>(null);
   const [orderError, setOrderError] = useState<string | null>(null);
   const [isLoadingCep, setIsLoadingCep] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const {
+    register,
+    getValues,
+    handleSubmit,
+    setValue,
+    trigger,
+    formState: { errors },
+  } = useForm<ShippingAddress>({
+    resolver: zodResolver(checkoutSchema),
+    defaultValues: initialAddress,
+    shouldFocusError: true,
+  });
 
   const subtotal = cart.reduce(
     (total, product) => total + product.price * product.quantity,
@@ -34,37 +47,26 @@ export const useCheckout = () => {
   );
   const total = subtotal + (shippingCost ?? 0);
 
-  const handleCepChange = (value: string) => {
-    setCep(value);
-    setAddress((currentAddress) => ({
-      ...currentAddress,
-      cep: value.replace(/\D/g, ''),
-    }));
-  };
-
-  const handleAddressChange = (
-    field: keyof ShippingAddress,
-    value: string,
-  ) => {
-    setAddress((currentAddress) => ({ ...currentAddress, [field]: value }));
-  };
-
   const handleFetchCep = async () => {
     setCepError(null);
+
+    const cepIsValid = await trigger('cep', { shouldFocus: true });
+    if (!cepIsValid) return;
+
+    const cep = getValues('cep').replace(/\D/g, '');
     setIsLoadingCep(true);
 
     try {
       const data = await fetchCEP(cep);
 
-      setAddress((currentAddress) => ({
-        ...currentAddress,
-        cep: cep.replace(/\D/g, ''),
-        street: data.street || '',
-        neighborhood: data.neighborhood || '',
-        complement: data.complement || '',
-        city: data.city || '',
-        state: data.state || '',
-      }));
+      setValue('cep', cep, { shouldValidate: true });
+      setValue('street', data.street || '', { shouldValidate: true });
+      setValue('neighborhood', data.neighborhood || '', {
+        shouldValidate: true,
+      });
+      setValue('complement', data.complement || '');
+      setValue('city', data.city || '', { shouldValidate: true });
+      setValue('state', data.state || '', { shouldValidate: true });
       setShippingCost(data.shippingCost);
     } catch (error) {
       setShippingCost(null);
@@ -76,20 +78,8 @@ export const useCheckout = () => {
     }
   };
 
-  const handleCreateOrder = async () => {
+  const submitOrder: SubmitHandler<ShippingAddress> = async (address) => {
     if (isSubmitting) return;
-
-    setOrderError(null);
-
-    if (!isAuthenticated) {
-      setOrderError('Faça login para continuar');
-      return;
-    }
-
-    if (cart.length === 0) {
-      setOrderError('Seu carrinho está vazio');
-      return;
-    }
 
     setIsSubmitting(true);
 
@@ -99,7 +89,11 @@ export const useCheckout = () => {
           productId: product.id,
           quantity: product.quantity,
         })),
-        shippingAddress: address,
+        shippingAddress: {
+          ...address,
+          cep: address.cep.replace(/\D/g, ''),
+          state: address.state.toUpperCase(),
+        },
         paymentMethod: 'PIX',
       });
 
@@ -120,18 +114,36 @@ export const useCheckout = () => {
     }
   };
 
+  const handleCreateOrder = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (isSubmitting) return;
+
+    setOrderError(null);
+
+    if (!isAuthenticated) {
+      setOrderError('Faça login para continuar');
+      return;
+    }
+
+    if (cart.length === 0) {
+      setOrderError('Seu carrinho está vazio');
+      return;
+    }
+
+    void handleSubmit(submitOrder)(event);
+  };
+
   return {
-    address,
     cart,
-    cep,
     cepError,
-    handleAddressChange,
-    handleCepChange,
+    errors,
     handleCreateOrder,
     handleFetchCep,
     isLoadingCep,
     isSubmitting,
     orderError,
+    register,
     shippingCost,
     subtotal,
     total,
