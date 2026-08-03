@@ -76,15 +76,25 @@ export const MenuMobile = ({ navLinks }: MenuMobileProps) => {
               </Link>
             </li>
             {isAuthenticated && (
-              <li>
-                <button
-                  onClick={handleSignOut}
-                  className="cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
-                >
-                  Sair
-                  <PiSignOutLight className="w-6 h-6"></PiSignOutLight>
-                </button>
-              </li>
+              <>
+                <li>
+                  <Link
+                    to="/orders"
+                    onClick={() => setMenuIsOpen(false)}
+                  >
+                    Meus pedidos
+                  </Link>
+                </li>
+                <li>
+                  <button
+                    onClick={handleSignOut}
+                    className="cursor-pointer hover:opacity-70 transition-opacity flex items-center gap-2"
+                  >
+                    Sair
+                    <PiSignOutLight className="w-6 h-6"></PiSignOutLight>
+                  </button>
+                </li>
+              </>
             )}
           </ul>
         </div>
