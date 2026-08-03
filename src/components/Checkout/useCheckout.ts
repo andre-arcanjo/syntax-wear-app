@@ -78,6 +78,12 @@ export const useCheckout = () => {
     if (isSubmitting) return;
 
     setOrderError(null);
+
+    if (cart.length === 0) {
+      setOrderError('Seu carrinho está vazio');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {

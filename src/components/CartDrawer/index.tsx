@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../../context/CartContext/CartContext";
 import { formatCurrency } from "../../utils/format-currency";
 import { useRouter } from "@tanstack/react-router";
@@ -9,6 +9,18 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
     useContext(CartContext);
 
   const router = useRouter()  
+  const [cartError, setCartError] = useState<string | null>(null);
+
+  const handleCheckout = () => {
+    if (cart.length === 0) {
+      setCartError('Seu carrinho está vazio');
+      return;
+    }
+
+    setCartError(null);
+    onClose();
+    router.navigate({ to: '/checkout' });
+  };
 
   return (
     <>
@@ -78,10 +90,16 @@ export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
             ))}
           </ul>
 
-          <div className="absolute bottom-0 w-full h-25 p-4">
-            <button className="w-full h-full bg-black text-white rounded-xs cursor-pointer hover:bg-gray-800" onClick={() => router.navigate({
-              to:"/checkout"
-            })}>
+          <div className="absolute bottom-0 w-full p-4">
+            {cartError && (
+              <p className="mb-2 text-sm text-red-500" role="alert">
+                {cartError}
+              </p>
+            )}
+            <button
+              className="w-full bg-black py-4 text-white rounded-xs cursor-pointer hover:bg-gray-800"
+              onClick={handleCheckout}
+            >
               Fechar pedido
             </button>
           </div>

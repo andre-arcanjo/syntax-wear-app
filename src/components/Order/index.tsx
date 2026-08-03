@@ -69,7 +69,7 @@ export const Order = ({
             type="button"
             className="mt-6 w-full rounded-3xl bg-black py-4 text-sm font-semibold text-white transition duration-200 ease-in-out hover:bg-[#494949] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
             onClick={onSubmit}
-            disabled={isSubmitting || cart.length === 0}
+            disabled={isSubmitting}
           >
             {isSubmitting ? 'Fechando pedido...' : 'Fechar pedido'}
           </button>
