@@ -5,7 +5,6 @@ interface OrderItem {
 }
 
 interface CreateOrderRequest {
-  userId?: number;
   items: OrderItem[];
   shippingAddress: {
     cep: string;
@@ -22,6 +21,42 @@ interface CreateOrderRequest {
 interface CreateOrderResponse {
   message: string;
   orderId: number;
+}
+
+export type OrderStatus =
+  | 'PENDING'
+  | 'PAID'
+  | 'SHIPPED'
+  | 'DELIVERED'
+  | 'CANCELLED';
+
+export interface UserOrder {
+  id: number;
+  total: number;
+  status: OrderStatus;
+  paymentMethod: string;
+  createdAt: string;
+  items: Array<{
+    id: number;
+    productId: number;
+    price: number;
+    quantity: number;
+    size?: string | null;
+    product: {
+      id: number;
+      name: string;
+      slug: string;
+      images: string[];
+    };
+  }>;
+}
+
+interface OrdersResponse {
+  data: UserOrder[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
 }
 
 export const createOrder = async (
@@ -47,4 +82,24 @@ export const createOrder = async (
   }
 
   return response.json();
+};
+
+export const getOrders = async (
+  page = 1,
+  limit = 10,
+): Promise<OrdersResponse> => {
+  const response = await fetch(
+    `http://localhost:3000/orders?page=${page}&limit=${limit}`,
+    { credentials: 'include' },
+  );
+
+  const responseData = await response.json().catch(() => null);
+
+  if (!response.ok) {
+    throw new Error(
+      responseData?.message || `Erro ao buscar pedidos (${response.status})`,
+    );
+  }
+
+  return responseData;
 };

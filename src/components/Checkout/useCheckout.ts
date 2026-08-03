@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
-import { useAuth } from '../../context/AuthContext/AuthContext';
 import { CartContext } from '../../context/CartContext/CartContext';
 import { fetchCEP } from '../../services/CEPService';
 import { createOrder } from '../../services/orderService';
@@ -18,7 +17,6 @@ const initialAddress: ShippingAddress = {
 
 export const useCheckout = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
   const { cart, clearCart } = useContext(CartContext);
   const [cep, setCep] = useState('');
   const [address, setAddress] = useState<ShippingAddress>(initialAddress);
@@ -84,7 +82,6 @@ export const useCheckout = () => {
 
     try {
       const createdOrder = await createOrder({
-        userId: user?.id ? Number(user.id) : undefined,
         items: cart.map((product) => ({
           productId: product.id,
           quantity: product.quantity,
