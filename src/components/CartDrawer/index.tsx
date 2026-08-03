@@ -3,15 +3,22 @@ import { CartContext } from "../../context/CartContext/CartContext";
 import { formatCurrency } from "../../utils/format-currency";
 import { useRouter } from "@tanstack/react-router";
 import type { CartDrawerProps } from "../../interfaces/cart";
+import { useAuth } from "../../context/AuthContext/AuthContext";
 
 export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
   const { cart, remove, increment, decrement } =
     useContext(CartContext);
+  const { isAuthenticated } = useAuth();
 
   const router = useRouter()  
   const [cartError, setCartError] = useState<string | null>(null);
 
   const handleCheckout = () => {
+    if (!isAuthenticated) {
+      setCartError('Faça login para continuar');
+      return;
+    }
+
     if (cart.length === 0) {
       setCartError('Seu carrinho está vazio');
       return;

@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { CartContext } from '../../context/CartContext/CartContext';
+import { useAuth } from '../../context/AuthContext/AuthContext';
 import { fetchCEP } from '../../services/CEPService';
 import { createOrder } from '../../services/orderService';
 import type { ShippingAddress } from './types';
@@ -17,6 +18,7 @@ const initialAddress: ShippingAddress = {
 
 export const useCheckout = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const { cart, clearCart } = useContext(CartContext);
   const [cep, setCep] = useState('');
   const [address, setAddress] = useState<ShippingAddress>(initialAddress);
@@ -78,6 +80,11 @@ export const useCheckout = () => {
     if (isSubmitting) return;
 
     setOrderError(null);
+
+    if (!isAuthenticated) {
+      setOrderError('Faça login para continuar');
+      return;
+    }
 
     if (cart.length === 0) {
       setOrderError('Seu carrinho está vazio');
