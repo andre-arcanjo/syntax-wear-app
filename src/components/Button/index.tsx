@@ -1,4 +1,4 @@
-import type { ButtonProps } from '../../interfaces/button';
+import type { ButtonProps } from '../../types/button';
 
 export const Button = ({
   children,

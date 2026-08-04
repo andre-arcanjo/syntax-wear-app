@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import type { Product, ProductCart } from '../../interfaces/product';
+import type { Product, ProductCart } from '../../types/product';
 import { CartContext } from './CartContext';
-import type { CartProviderProps } from '../../interfaces/cart';
+import type { CartProviderProps } from '../../types/cart';
 
 const localStorageKey = '@SyntaxWear:cart';
 

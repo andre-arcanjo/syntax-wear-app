@@ -5,7 +5,7 @@ import { FaRegUserCircle } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
 import { useAuth } from '../../context/AuthContext/AuthContext';
 import { PiSignOutLight } from 'react-icons/pi';
-import type { MenuMobileProps } from '../../interfaces/menuMobile';
+import type { MenuMobileProps } from '../../types/menuMobile';
 
 export const MenuMobile = ({ navLinks }: MenuMobileProps) => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);

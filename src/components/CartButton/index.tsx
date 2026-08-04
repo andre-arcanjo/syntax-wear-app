@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import IconCart from '../../assets/images/icons/carrinho.svg';
 import { CartContext } from '../../context/CartContext/CartContext';
-import type { CardButtonProps } from '../../interfaces/button';
+import type { CardButtonProps } from '../../types/button';
 
 export const CartButton = ({ onclick }: CardButtonProps) => {
   const { cart } = useContext(CartContext);

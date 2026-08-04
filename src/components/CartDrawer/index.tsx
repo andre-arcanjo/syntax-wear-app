@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { CartContext } from "../../context/CartContext/CartContext";
 import { formatCurrency } from "../../utils/format-currency";
 import { useRouter } from "@tanstack/react-router";
-import type { CartDrawerProps } from "../../interfaces/cart";
+import type { CartDrawerProps } from "../../types/cart";
 import { useAuth } from "../../context/AuthContext/AuthContext";
 
 export const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {

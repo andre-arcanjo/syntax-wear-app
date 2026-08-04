@@ -3,7 +3,7 @@ import { ProductList } from '../../../../components/ProductList';
 import { getCategoryByName } from '../../../../services/categoryService';
 import { getProductByCategoryId } from '../../../../services/productService';
 import { useEffect, useState } from 'react';
-import type { Product } from '../../../../interfaces/product';
+import type { Product } from '../../../../types/product';
 
 export const Route = createFileRoute('/_app/products/category/$category')({
   loader: async ({ params }) => {

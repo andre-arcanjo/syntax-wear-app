@@ -1,4 +1,4 @@
-import type { ProductListProps } from '../../interfaces/product';
+import type { ProductListProps } from '../../types/product';
 import { ProductCard } from '../ProductCard';
 
 export const ProductList = ({ products }: ProductListProps) => {

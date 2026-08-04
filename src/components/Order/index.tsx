@@ -1,4 +1,4 @@
-import type { ProductCart } from '../../interfaces/product';
+import type { ProductCart } from '../../types/product';
 import { formatCurrency } from '../../utils/format-currency';
 
 interface OrderProps {

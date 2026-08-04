@@ -1,4 +1,4 @@
-import type { OverlayProps } from '../../interfaces/overlay';
+import type { OverlayProps } from '../../types/overlay';
 
 export const Overlay = ({
   children,

@@ -1,5 +1,5 @@
 import { notFound } from '@tanstack/react-router';
-import type { Product } from '../interfaces/product';
+import type { Product } from '../types/product';
 
 const API_BASE_URL = 'http://localhost:3000';
 
