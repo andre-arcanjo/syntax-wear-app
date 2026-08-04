@@ -6,7 +6,7 @@ import { CartContext } from '../../context/CartContext/CartContext';
 import { useAuth } from '../../context/AuthContext/AuthContext';
 import { fetchCEP } from '../../services/CEPService';
 import { createOrder } from '../../services/orderService';
-import { checkoutSchema, type ShippingAddress } from './checkoutSchema';
+import { checkoutSchema, type ShippingAddress } from '../../schemas/checkout.schema';
 
 const initialAddress: ShippingAddress = {
   cep: '',

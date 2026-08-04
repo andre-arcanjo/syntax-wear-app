@@ -1,6 +1,6 @@
 import { useNavigate } from '@tanstack/react-router';
 import { useAuth } from '../../context/AuthContext/AuthContext';
-import { useRegisterForm, type RegisterFormData } from '../../validator/register-form.schema';
+import { useRegisterForm, type RegisterFormData } from '../../schemas/register-form.schema';
 import { useState } from 'react';
 
 export const RegisterForm = () => {

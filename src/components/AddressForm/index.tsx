@@ -2,7 +2,7 @@ import type {
   FieldErrors,
   UseFormRegister,
 } from 'react-hook-form';
-import type { ShippingAddress } from '../Checkout/checkoutSchema';
+import type { ShippingAddress } from '../../schemas/checkout.schema';
 
 interface AddressFormProps {
   errors: FieldErrors<ShippingAddress>;

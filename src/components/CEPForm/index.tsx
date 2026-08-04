@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useCEPForm } from '../../validator/cep-form.schema';
+import { useCEPForm } from '../../schemas/cep-form.schema';
 import type { CEPResponse } from '../../types/CEP';
 import { formatCurrency } from '../../utils/format-currency';
 import { fetchCEP } from '../../services/CEPService';
