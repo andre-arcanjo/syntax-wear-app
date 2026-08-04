@@ -1,5 +1,5 @@
 import { Copyright } from '../Copyright';
-import { MenuItems } from '../MenuItems';
+import { MenuItems } from '../Header/MenuItems';
 import { SocialLinks } from '../SocialLinks';
 import { SubscriptionForm } from '../SubscriptionForm';
 

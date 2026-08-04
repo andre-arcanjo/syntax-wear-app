@@ -1,9 +1,9 @@
 import Logo from '../../assets/images/icons/logo.svg';
 import IconUser from '../../assets/images/icons/minha-conta.svg';
 import { Link } from '@tanstack/react-router';
-import { MenuMobile } from '../MenuMobile';
-import { CartButton } from '../CartButton';
-import { CartDrawer } from '../CartDrawer';
+import { MenuMobile } from './MenuMobile';
+import { CartButton } from './CartButton';
+import { CartDrawer } from './CartDrawer';
 import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../../context/AuthContext/AuthContext';
 import { PiSignOutLight } from 'react-icons/pi';

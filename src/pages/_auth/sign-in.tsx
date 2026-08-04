@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { LoginForm } from '../../components/LoginForm';
-import { Logo } from '../../components/Logo';
+import { Logo } from '../../components/Header/Logo';
 import { Separator } from '../../components/Separator';
 import { GoogleAuthButton } from '../../components/GoogleAuthButton';
 
