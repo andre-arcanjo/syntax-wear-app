@@ -1,5 +1,5 @@
 import type { ProductListProps } from '../../types/product';
-import { ProductCard } from '../ProductCard';
+import { ProductCard } from './ProductCard';
 
 export const ProductList = ({ products }: ProductListProps) => {
   return (

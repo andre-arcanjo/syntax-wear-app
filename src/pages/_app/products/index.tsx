@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { ProductList } from '../../../components/ProductList';
+import { ProductList } from '../../../components/Products/ProductList';
 import { useEffect, useRef, useState } from 'react';
 import { getProducts } from '../../../services/productService';
 import type { Product } from '../../../types/product';

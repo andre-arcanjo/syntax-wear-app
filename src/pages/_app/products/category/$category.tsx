@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { ProductList } from '../../../../components/ProductList';
+import { ProductList } from '../../../../components/Products/ProductList';
 import { getCategoryByName } from '../../../../services/categoryService';
 import { getProductByCategoryId } from '../../../../services/productService';
 import { useEffect, useState } from 'react';
