@@ -1,5 +1,5 @@
 import { categories } from '../../mocks/categories';
-import { Button } from '../Button';
+import { Button } from '../ui/Button';
 import { useRouter } from '@tanstack/react-router';
 
 export const Categories = () => {

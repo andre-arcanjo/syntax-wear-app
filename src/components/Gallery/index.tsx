@@ -4,8 +4,8 @@ import modelo from '../../assets/images/grid/card-modelo.svg';
 import tenisColorido from '../../assets/images/grid/card-tenis-colorido.svg';
 import tenisBrancoEPreto from '../../assets/images/grid/card-tenis-preto-azul.svg';
 import tenisCinza from '../../assets/images/grid/card-tenis-cinza.svg';
-import { Overlay } from '../Overlay';
-import { Button } from '../Button';
+import { Overlay } from '../ui/Overlay';
+import { Button } from '../ui/Button';
 import { useRouter } from '@tanstack/react-router';
 
 export const Gallery = () => {

@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { LoginForm } from '../../components/LoginForm';
+import { LoginForm } from '../../components/Auth/LoginForm';
 import { Logo } from '../../components/Header/Logo';
-import { Separator } from '../../components/Separator';
-import { GoogleAuthButton } from '../../components/GoogleAuthButton';
+import { Separator } from '../../components/Auth/Separator';
+import { GoogleAuthButton } from '../../components/Auth/GoogleAuthButton';
 
 export const Route = createFileRoute('/_auth/sign-in')({
   validateSearch: (search: Record<string, unknown>) => ({
