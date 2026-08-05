@@ -1,5 +1,5 @@
-import { OrdersPage } from '../Order/OrdersPage';
-import { ProtectedRoute } from '../ProtectedRoute';
+import { OrdersPage } from '../Orders/OrdersPage';
+import { ProtectedRoute } from './ProtectedRoute';
 
 export const ProtectedOrdersPage = () => (
   <ProtectedRoute>

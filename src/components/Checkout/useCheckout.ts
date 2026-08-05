@@ -4,8 +4,8 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CartContext } from '../../context/CartContext/CartContext';
 import { useAuth } from '../../context/AuthContext/AuthContext';
-import { fetchCEP } from '../../services/CEPService';
-import { createOrder } from '../../services/orderService';
+import { fetchCEP } from '../../services/cep-service';
+import { createOrder } from '../../services/order-service';
 import { checkoutSchema, type ShippingAddress } from '../../schemas/checkout.schema';
 
 const initialAddress: ShippingAddress = {

@@ -1,5 +1,5 @@
-import { OrderSuccess } from '../Order/OrderSuccess';
-import { ProtectedRoute } from '../ProtectedRoute';
+import { OrderSuccess } from '../Orders/OrderSuccess';
+import { ProtectedRoute } from './ProtectedRoute';
 
 export const ProtectedOrderSuccess = () => (
   <ProtectedRoute>

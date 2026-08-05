@@ -3,7 +3,7 @@ import { formatCurrency } from '../../../utils/format-currency';
 import { useContext } from 'react';
 import { CartContext } from '../../../context/CartContext/CartContext';
 import { CEPForm } from '../../../components/CEPForm';
-import { getProductDetailById } from '../../../services/productService';
+import { getProductDetailById } from '../../../services/product-service';
 
 export const Route = createFileRoute('/_app/products/$productId')({
   loader: async ({ params }) => {

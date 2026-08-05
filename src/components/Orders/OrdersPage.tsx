@@ -3,7 +3,7 @@ import {
   getOrders,
   type OrderStatus,
   type UserOrder,
-} from '../../services/orderService';
+} from '../../services/order-service';
 import { formatCurrency } from '../../utils/format-currency';
 
 const statusLabels: Record<OrderStatus, string> = {

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { ProductList } from '../../../../components/Products/ProductList';
-import { getCategoryByName } from '../../../../services/categoryService';
-import { getProductByCategoryId } from '../../../../services/productService';
+import { getCategoryByName } from '../../../../services/category-service';
+import { getProductByCategoryId } from '../../../../services/product-service';
 import { useEffect, useState } from 'react';
 import type { Product } from '../../../../types/product';
 

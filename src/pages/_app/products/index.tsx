@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { ProductList } from '../../../components/Products/ProductList';
 import { useEffect, useRef, useState } from 'react';
-import { getProducts } from '../../../services/productService';
+import { getProducts } from '../../../services/product-service';
 import type { Product } from '../../../types/product';
 
 export const Route = createFileRoute('/_app/products/')({

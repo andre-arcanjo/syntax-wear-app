@@ -1,5 +1,5 @@
 import { Checkout } from '../Checkout';
-import { ProtectedRoute } from '../ProtectedRoute';
+import { ProtectedRoute } from './ProtectedRoute';
 
 export const ProtectedCheckout = () => (
   <ProtectedRoute>

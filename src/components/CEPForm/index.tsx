@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useCEPForm } from '../../schemas/cep-form.schema';
 import type { CEPResponse } from '../../types/CEP';
 import { formatCurrency } from '../../utils/format-currency';
-import { fetchCEP } from '../../services/CEPService';
+import { fetchCEP } from '../../services/cep-service';
 
 export const CEPForm = () => {
   const { register, handleSubmit, errors, isSubmitting } = useCEPForm();

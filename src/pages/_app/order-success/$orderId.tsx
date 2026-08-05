@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { ProtectedOrderSuccess } from '../../../components/ProtectedOrderSuccess';
+import { ProtectedOrderSuccess } from '../../../components/Protected/ProtectedOrderSuccess';
 
 export const Route = createFileRoute('/_app/order-success/$orderId')({
   component: ProtectedOrderSuccess,

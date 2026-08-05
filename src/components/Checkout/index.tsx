@@ -1,6 +1,6 @@
 import { CustomerInfo } from './CustomerInfo';
 import { AddressForm } from './AddressForm';
-import { Order } from '../Order';
+import { Order } from '../Orders';
 import { useCheckout } from './useCheckout';
 
 export const Checkout = () => {
