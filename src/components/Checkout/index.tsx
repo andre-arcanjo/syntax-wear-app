@@ -1,5 +1,5 @@
-import { CustomerInfo } from '../CustomerInfo';
-import { AddressForm } from '../AddressForm';
+import { CustomerInfo } from './CustomerInfo';
+import { AddressForm } from './AddressForm';
 import { Order } from '../Order';
 import { useCheckout } from './useCheckout';
 
