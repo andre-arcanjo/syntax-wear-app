@@ -336,9 +336,9 @@ Estas tarefas agregam valor, mas não devem atrasar a publicação do portfólio
 
 - [x] Criar `GET /orders/me`.
 - [x] Proteger rotas privadas.
-- [ ] Revisar autorização de pedidos.
+- [x] Revisar autorização de pedidos.
 - [ ] Corrigir status HTTP e mensagens de erro.
-- [ ] Garantir persistência da sessão em todos os métodos de login.
+- [x] Garantir persistência da sessão em todos os métodos de login.
 
 ### Marco 2 — Jornada de compra completa
 

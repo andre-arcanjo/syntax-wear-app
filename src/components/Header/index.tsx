@@ -19,7 +19,6 @@ export const Header = () => {
   const [cartIsOpen, setCartIsOpen] = useState<boolean>(false);
   const [accountMenuIsOpen, setAccountMenuIsOpen] = useState(false);
   const accountMenuRef = useRef<HTMLLIElement>(null);
-
   const { isAuthenticated, signOut } = useAuth();
 
   const handleSignOut = async () => {
@@ -43,16 +42,10 @@ export const Header = () => {
       }
     };
 
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setAccountMenuIsOpen(false);
-    };
-
     document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleEscape);
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleEscape);
     };
   }, [accountMenuIsOpen]);
 
@@ -88,10 +81,7 @@ export const Header = () => {
                 <li className="lg:hidden">
                   <MenuMobile navLinks={navLinks} />
                 </li>
-                <li
-                  ref={accountMenuRef}
-                  className="relative hidden lg:block"
-                >
+                <li ref={accountMenuRef} className="relative hidden lg:block">
                   {isAuthenticated ? (
                     <>
                       <button
@@ -145,7 +135,6 @@ export const Header = () => {
             </nav>
           </div>
         </header>
-
         <CartDrawer isOpen={cartIsOpen} onClose={() => setCartIsOpen(false)} />
       </div>
     </>
