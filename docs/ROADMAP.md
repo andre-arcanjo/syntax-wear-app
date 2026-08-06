@@ -351,7 +351,7 @@ Estas tarefas agregam valor, mas não devem atrasar a publicação do portfólio
 ### Marco 3 — Qualidade
 
 - [ ] Estabilizar testes do backend.
-- [ ] Adicionar testes essenciais do frontend.
+- [x] Adicionar testes essenciais do frontend.
 - [ ] Zerar erros de lint e build.
 - [ ] Centralizar configuração da API.
 - [ ] Corrigir codificação e acessibilidade evidente.
