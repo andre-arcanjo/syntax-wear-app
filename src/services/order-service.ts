@@ -21,6 +21,9 @@ interface CreateOrderRequest {
 interface CreateOrderResponse {
   message: string;
   orderId: number;
+  subtotal: number;
+  shippingCost: number;
+  total: number;
 }
 
 export type OrderStatus =
@@ -32,6 +35,8 @@ export type OrderStatus =
 
 export interface UserOrder {
   id: number;
+  subtotal: number;
+  shippingCost: number;
   total: number;
   status: OrderStatus;
   paymentMethod: string;
@@ -50,6 +55,22 @@ export interface UserOrder {
     };
   }>;
 }
+
+export const getShippingCost = async (state: string): Promise<number> => {
+  const response = await fetch(
+    `http://localhost:3000/shipping/${state}`,
+  );
+
+  const responseData = await response.json().catch(() => null);
+
+  if (!response.ok) {
+    throw new Error(
+      responseData?.message || `Erro ao calcular frete (${response.status})`,
+    );
+  }
+
+  return Number(responseData.shippingCost);
+};
 
 interface OrdersResponse {
   data: UserOrder[];

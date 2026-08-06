@@ -343,7 +343,7 @@ Estas tarefas agregam valor, mas não devem atrasar a publicação do portfólio
 ### Marco 2 — Jornada de compra completa
 
 - [x] Validar formulário de checkout.
-- [ ] Unificar cálculo de frete e total.
+- [x] Unificar cálculo de frete e total.
 - [ ] Finalizar histórico de pedidos.
 - [ ] Criar detalhes do pedido.
 - [ ] Implementar cancelamento seguro.

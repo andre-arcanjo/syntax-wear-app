@@ -120,7 +120,11 @@ export const OrdersPage = () => {
                       >
                         {statusLabels[order.status]}
                       </span>
-                      <strong>{formatCurrency(Number(order.total))}</strong>
+                      <div className="text-right text-sm">
+                        <p>Subtotal: {formatCurrency(Number(order.subtotal))}</p>
+                        <p>Frete: {formatCurrency(Number(order.shippingCost))}</p>
+                        <strong>Total: {formatCurrency(Number(order.total))}</strong>
+                      </div>
                     </div>
                   </div>
                 </article>

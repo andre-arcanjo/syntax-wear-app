@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { CartContext } from '../../context/CartContext/CartContext';
 import { useAuth } from '../../context/AuthContext/AuthContext';
 import { fetchCEP } from '../../services/cep-service';
-import { createOrder } from '../../services/order-service';
+import { createOrder, getShippingCost } from '../../services/order-service';
 import { checkoutSchema, type ShippingAddress } from '../../schemas/checkout.schema';
 
 const initialAddress: ShippingAddress = {
@@ -67,7 +67,7 @@ export const useCheckout = () => {
       setValue('complement', data.complement || '');
       setValue('city', data.city || '', { shouldValidate: true });
       setValue('state', data.state || '', { shouldValidate: true });
-      setShippingCost(data.shippingCost);
+      setShippingCost(await getShippingCost(data.state));
     } catch (error) {
       setShippingCost(null);
       setCepError(

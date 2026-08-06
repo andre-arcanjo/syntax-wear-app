@@ -3,6 +3,7 @@ import { useCEPForm } from '../../schemas/cep-form.schema';
 import type { CEPResponse } from '../../types/CEP';
 import { formatCurrency } from '../../utils/format-currency';
 import { fetchCEP } from '../../services/cep-service';
+import { getShippingCost } from '../../services/order-service';
 
 export const CEPForm = () => {
   const { register, handleSubmit, errors, isSubmitting } = useCEPForm();
@@ -15,9 +16,10 @@ export const CEPForm = () => {
 
     try {
       const data = await fetchCEP(cep)
+      const shippingCost = await getShippingCost(data.state);
 
-      setAddress(data);
-    } catch(error) {
+      setAddress({ ...data, shippingCost });
+    } catch {
       setAddressError(
         'Ocorreu um erro ao buscar o CEP. Tente novamente mais tarde.',
       );
