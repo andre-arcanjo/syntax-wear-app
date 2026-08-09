@@ -1,0 +1,31 @@
+interface RegisterNewsletterRequest {
+  email: string;
+}
+
+export const registerNewsletter = async (data: RegisterNewsletterRequest) => {
+  let response;
+
+  try {
+    response = await fetch('http://localhost:3000/newsletter', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+  } catch (error) {
+    throw new Error(
+      'Não foi possível conectar ao servidor. Tente novamente mais tarde.',
+    );
+  }
+  const responseApi = await response.json();
+
+  if (!response.ok) {
+    if (response.status === 409) {
+      throw new Error(responseApi.message);
+    }
+    throw new Error('Não foi possível cadastrar o e-mail. Tente novamente.');
+  }
+
+  return responseApi;
+};
