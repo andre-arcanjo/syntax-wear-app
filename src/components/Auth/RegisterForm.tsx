@@ -14,6 +14,7 @@ export const RegisterForm = () => {
 
   async function handleRegisterUser(data: RegisterFormData) {
     const { confirmPassword, ...dataWithoutConfirmPassword } = data;
+    void confirmPassword;
 
     setError(null);
 

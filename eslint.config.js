@@ -25,4 +25,12 @@ export default defineConfig([
       globals: globals.vitest,
     },
   },
+  {
+    // TanStack Router requires route modules to export `Route` alongside the
+    // component, which is intentionally incompatible with this Vite rule.
+    files: ['src/pages/**/*.{ts,tsx}'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
 ])

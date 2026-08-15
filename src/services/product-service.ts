@@ -38,7 +38,7 @@ export async function getProducts({
   } catch (error) {
     if (error instanceof Error) throw error;
 
-    throw new Error('Erro desconhecido ao buscar produtos.');
+    throw new Error('Erro desconhecido ao buscar produtos.', { cause: error });
   }
 }
 

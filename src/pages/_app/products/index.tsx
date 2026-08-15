@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { ProductList } from '../../../components/Products/ProductList';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getProducts } from '../../../services/product-service';
 import type { Product } from '../../../types/product';
 
@@ -14,16 +14,34 @@ export const Route = createFileRoute('/_app/products/')({
 function RouteComponent() {
   const [products, setProducts] = useState<Product[]>([]);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
 
-  const hasFetchedInitialProducts = useRef(false);
-
   useEffect(() => {
-    if (hasFetchedInitialProducts.current) return;
-    hasFetchedInitialProducts.current = true;
+    let cancelled = false;
 
-    loadMore();
+    async function fetchInitialProducts() {
+      try {
+        const response = await getProducts({ page: 1 });
+        if (cancelled) return;
+
+        setProducts(response.data);
+        setHasMore(response.data.length >= response.limit);
+        setPage(2);
+      } catch (error) {
+        if (cancelled) return;
+        console.error('Erro ao carregar produtos:', error);
+        setHasMore(false);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    void fetchInitialProducts();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   async function loadMore() {

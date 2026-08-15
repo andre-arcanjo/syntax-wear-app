@@ -18,6 +18,7 @@ export const registerNewsletter = async (data: RegisterNewsletterRequest) => {
   } catch (error) {
     throw new Error(
       'Não foi possível conectar ao servidor. Tente novamente mais tarde.',
+      { cause: error },
     );
   }
   const responseApi = await response.json();

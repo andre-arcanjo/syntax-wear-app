@@ -25,39 +25,66 @@ export const Route = createFileRoute('/_app/products/category/$category')({
 });
 
 function RouteComponent() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-
   const { category } = Route.useLoaderData();
 
+  return <CategoryProducts key={category.id} category={category} />;
+}
+
+interface CategoryProductsProps {
+  category: {
+    id: number;
+  };
+}
+
+function CategoryProducts({ category }: CategoryProductsProps) {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
+
   useEffect(() => {
-    setPage(1);
-    setHasMore(true);
-    loadMore(true); // reset
+    let cancelled = false;
+
+    async function fetchInitialProducts() {
+      try {
+        const response = await getProductByCategoryId(category.id, { page: 1 });
+        if (cancelled) return;
+
+        setProducts(response.data);
+        setHasMore(response.data.length >= response.limit);
+        setPage(2);
+      } catch (error) {
+        if (cancelled) return;
+        console.error('Erro ao carregar produtos:', error);
+        setHasMore(false);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    void fetchInitialProducts();
+
+    return () => {
+      cancelled = true;
+    };
   }, [category.id]);
 
-  async function loadMore(reset = false) {
-    if (loading || (!hasMore && !reset)) return;
+  async function loadMore() {
+    if (loading || !hasMore) return;
 
     setLoading(true);
 
     try {
-      const currentPage = reset ? 1 : page;
-
       const filteredProducts = await getProductByCategoryId(category.id, {
-        page: currentPage,
+        page,
       });
 
-      setProducts((prev) =>
-        reset ? filteredProducts.data : [...prev, ...filteredProducts.data],
-      );
+      setProducts((prev) => [...prev, ...filteredProducts.data]);
 
       if (filteredProducts.data.length < filteredProducts.limit) {
         setHasMore(false);
       } else {
-        setPage(currentPage + 1);
+        setPage((currentPage) => currentPage + 1);
       }
     } catch (error) {
       console.error('Erro ao carregar produtos:', error);
