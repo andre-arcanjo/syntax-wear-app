@@ -72,7 +72,7 @@ function RouteComponent() {
             {product.name}
           </h1>
 
-          <p className="mb-2 text-sm sm:text-base">Cor: {product.color}</p>
+          <p className="mb-2 text-sm sm:text-base">Cor: {product.colors[0]}</p>
 
           <p className="line-through text-xs sm:text-sm text-[#878787]">
             {formatCurrency(originalPrice)}
