@@ -44,7 +44,7 @@ function RouteComponent() {
   const { add } = useContext(CartContext);
   const { product } = useLoaderData({ from: Route.id });
   const originalPrice = product.price ?? 0;
-  const discountPrice = originalPrice * 0.9;
+  // const discountPrice = originalPrice * 0.9;
   const inInstallmentsPrice = originalPrice / 6;
 
   return (
@@ -74,16 +74,22 @@ function RouteComponent() {
 
           <p className="mb-2 text-sm sm:text-base">Cor: {product.colors[0]}</p>
 
-          <p className="line-through text-xs sm:text-sm text-[#878787]">
+          {/* desconto no pix: sera implementado futuramente */}
+
+          {/* <p className="line-through text-xs sm:text-sm text-[#878787]">
             {formatCurrency(originalPrice)}
-          </p>
+          </p> */}
+
+          {/* <p className="text-2xl sm:text-3xl font-bold mb-2">
+            {formatCurrency(discountPrice)} no PIX
+          </p> */}
+
+          {/* <p className="text-xs sm:text-sm text-[#878787]">
+            Você economiza: <span className="font-semibold">10%</span>
+          </p> */}
 
           <p className="text-2xl sm:text-3xl font-bold mb-2">
-            {formatCurrency(discountPrice)} no PIX
-          </p>
-
-          <p className="text-xs sm:text-sm text-[#878787]">
-            Você economiza: <span className="font-semibold">10%</span>
+            {formatCurrency(originalPrice)}
           </p>
 
           <p className="mb-3 text-sm sm:text-base">
