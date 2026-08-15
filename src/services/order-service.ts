@@ -1,3 +1,5 @@
+import { API_URL } from "../config/api";
+
 interface OrderItem {
   productId: number;
   quantity: number;
@@ -58,7 +60,7 @@ export interface UserOrder {
 
 export const getShippingCost = async (state: string): Promise<number> => {
   const response = await fetch(
-    `http://localhost:3000/shipping/${state}`,
+    `${API_URL}/shipping/${state}`,
   );
 
   const responseData = await response.json().catch(() => null);
@@ -83,7 +85,7 @@ interface OrdersResponse {
 export const createOrder = async (
   data: CreateOrderRequest,
 ): Promise<CreateOrderResponse> => {
-  const response = await fetch("http://localhost:3000/orders", {
+  const response = await fetch(`${API_URL}/orders`, {
     method: "POST",
     credentials: 'include',
     headers: {
@@ -110,7 +112,7 @@ export const getOrders = async (
   limit = 10,
 ): Promise<OrdersResponse> => {
   const response = await fetch(
-    `http://localhost:3000/orders/me?page=${page}&limit=${limit}`,
+    `${API_URL}/orders/me?page=${page}&limit=${limit}`,
     { credentials: 'include' },
   );
 

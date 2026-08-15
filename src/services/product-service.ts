@@ -1,7 +1,6 @@
 import { notFound } from '@tanstack/react-router';
 import type { Product } from '../types/product';
-
-const API_BASE_URL = 'http://localhost:3000';
+import { API_URL } from '../config/api';
 
 const DEFAULT_LIMIT = 3;
 
@@ -26,7 +25,7 @@ export async function getProducts({
     limit: limit.toString(),
   });
 
-  const url = `${API_BASE_URL}/products?${params.toString()}`;
+  const url = `${API_URL}/products?${params.toString()}`;
 
   try {
     const response = await fetch(url);
@@ -52,7 +51,7 @@ export async function getProductByCategoryId(
     limit: (paginationParams?.limit || DEFAULT_LIMIT).toString(),
     categoryId: categoryId.toString(),
   });
-  const response = await fetch(`${API_BASE_URL}/products?${params.toString()}`);
+  const response = await fetch(`${API_URL}/products?${params.toString()}`);
 
   if (!response.ok) {
     throw new Error(
@@ -66,7 +65,7 @@ export async function getProductByCategoryId(
 export async function getProductDetailById(
   id: string,
 ): Promise<Product> {
-  const response = await fetch(`http://localhost:3000/products/${id}`);
+  const response = await fetch(`${API_URL}/products/${id}`);
 
   if (!response.ok) {
     throw notFound();

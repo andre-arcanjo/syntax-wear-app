@@ -2,6 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useAuth } from './AuthContext';
 import { AuthProvider } from './AuthProvider';
+import { API_URL } from '../../config/api';
 
 const user = {
   id: '1',
@@ -54,7 +55,7 @@ describe('AuthProvider', () => {
     expect(screen.getByText('carregando')).toBeInTheDocument();
     expect(await screen.findByText('André')).toBeInTheDocument();
     expect(fetchMock).toHaveBeenCalledWith(
-      'http://localhost:3000/auth/profile',
+      `${API_URL}/auth/profile`,
       expect.objectContaining({ credentials: 'include' }),
     );
   });
