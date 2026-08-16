@@ -1,7 +1,8 @@
 import { notFound } from '@tanstack/react-router';
 import { API_URL } from '../config/api';
+import type { Category } from '../types/category';
 
-export async function getCategoryByName(name: string) {
+export async function getCategoryByName(name: string): Promise<Category> {
   const params = new URLSearchParams({ page: '1', limit: '1', search: name });
 
   const response = await fetch(
