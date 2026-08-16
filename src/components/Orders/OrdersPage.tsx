@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
-import {
-  getOrders,
-  type OrderStatus,
-  type UserOrder,
-} from '../../services/order-service';
+import { getOrders } from '../../services/order-service';
 import { formatCurrency } from '../../utils/format-currency';
+import type { OrderStatus, UserOrder } from '../../types/order';
 
 const statusLabels: Record<OrderStatus, string> = {
   PENDING: 'Pendente',
@@ -42,9 +39,7 @@ export const OrdersPage = () => {
         if (!isCurrentRequest) return;
 
         setOrders((currentOrders) =>
-          page === 1
-            ? response.data
-            : [...currentOrders, ...response.data],
+          page === 1 ? response.data : [...currentOrders, ...response.data],
         );
         setTotalPages(response.totalPages);
       } catch (requestError) {
@@ -83,7 +78,10 @@ export const OrdersPage = () => {
             />
           </div>
         ) : error ? (
-          <p className="mt-8 rounded-2xl bg-red-50 p-4 text-red-700" role="alert">
+          <p
+            className="mt-8 rounded-2xl bg-red-50 p-4 text-red-700"
+            role="alert"
+          >
             {error}
           </p>
         ) : orders.length === 0 ? (
@@ -121,9 +119,15 @@ export const OrdersPage = () => {
                         {statusLabels[order.status]}
                       </span>
                       <div className="text-right text-sm">
-                        <p>Subtotal: {formatCurrency(Number(order.subtotal))}</p>
-                        <p>Frete: {formatCurrency(Number(order.shippingCost))}</p>
-                        <strong>Total: {formatCurrency(Number(order.total))}</strong>
+                        <p>
+                          Subtotal: {formatCurrency(Number(order.subtotal))}
+                        </p>
+                        <p>
+                          Frete: {formatCurrency(Number(order.shippingCost))}
+                        </p>
+                        <strong>
+                          Total: {formatCurrency(Number(order.total))}
+                        </strong>
                       </div>
                     </div>
                   </div>
