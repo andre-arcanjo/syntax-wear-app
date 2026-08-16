@@ -1,4 +1,4 @@
-import { Checkout } from '../Checkout';
+import { Checkout } from '../Checkout/Checkout';
 import { ProtectedRoute } from './ProtectedRoute';
 
 export const ProtectedCheckout = () => (

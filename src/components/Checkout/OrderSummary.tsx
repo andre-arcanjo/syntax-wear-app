@@ -1,7 +1,7 @@
 import type { ProductCart } from '../../types/product';
 import { formatCurrency } from '../../utils/format-currency';
 
-interface OrderProps {
+interface OrderSummaryProps {
   cart: ProductCart[];
   subtotal: number;
   shippingCost: number | null;
@@ -10,14 +10,14 @@ interface OrderProps {
   isSubmitting: boolean;
 }
 
-export const Order = ({
+export const OrderSummary = ({
   cart,
   subtotal,
   shippingCost,
   total,
   error,
   isSubmitting,
-}: OrderProps) => {
+}: OrderSummaryProps) => {
   return (
     <aside className="w-full space-y-6 lg:max-w-105">
       <div className="rounded-[30px] border border-border bg-white p-6 shadow-sm">

@@ -1,6 +1,6 @@
 import { CustomerInfo } from './CustomerInfo';
 import { AddressForm } from './AddressForm';
-import { Order } from '../Orders';
+import { OrderSummary } from './OrderSummary';
 import { useCheckout } from './useCheckout';
 
 export const Checkout = () => {
@@ -25,7 +25,7 @@ export const Checkout = () => {
           />
         </div>
 
-        <Order
+        <OrderSummary
           cart={checkout.cart}
           subtotal={checkout.subtotal}
           shippingCost={checkout.shippingCost}

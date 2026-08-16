@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext/AuthContext';
 import { CartContext } from '../../context/CartContext/CartContext';
 import type { ProductCart } from '../../types/product';
 import { createOrder } from '../../services/order-service';
-import { Checkout } from '.';
+import { Checkout } from './Checkout';
 
 const navigate = vi.fn();
 

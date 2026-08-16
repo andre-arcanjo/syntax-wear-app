@@ -2,7 +2,7 @@ import { createFileRoute, Link, useLoaderData } from '@tanstack/react-router';
 import { formatCurrency } from '../../../utils/format-currency';
 import { useContext } from 'react';
 import { CartContext } from '../../../context/CartContext/CartContext';
-import { CEPForm } from '../../../components/CEPForm';
+import { CEPForm } from '../../../components/CEPForm/CEPForm';
 import { getProductDetailById } from '../../../services/product-service';
 
 export const Route = createFileRoute('/_app/products/$productId')({

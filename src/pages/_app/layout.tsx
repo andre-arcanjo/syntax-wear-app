@@ -1,6 +1,6 @@
 import { Outlet, createFileRoute, useLocation } from "@tanstack/react-router";
-import { Header } from "../../components/Header";
-import { Footer } from "../../components/Footer";
+import { Header } from "../../components/Header/Header";
+import { Footer } from "../../components/Footer/Footer";
 
 export const Route = createFileRoute("/_app")({
   component: AppLayout,

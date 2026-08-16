@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useCEPForm } from '../../schemas/cep-form.schema';
-import type { CEPResponse } from '../../types/CEP';
+import type { CEPResponse } from '../../types/cep';
 import { formatCurrency } from '../../utils/format-currency';
 import { fetchCEP } from '../../services/cep-service';
 import { getShippingCost } from '../../services/order-service';

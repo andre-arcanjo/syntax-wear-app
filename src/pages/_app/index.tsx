@@ -1,6 +1,6 @@
-import { Categories } from "../../components/Categories";
-import { Gallery } from "../../components/Gallery";
-import { Hero } from "../../components/Hero";
+import { Categories } from "../../components/Categories/Categories";
+import { Gallery } from "../../components/Gallery/Gallery";
+import { Hero } from "../../components/Hero/Hero";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app/")({
