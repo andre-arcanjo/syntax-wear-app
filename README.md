@@ -1,77 +1,113 @@
-# Syntax Wear 👟
+# SyntaxWear 
 
-Syntax Wear é uma plataforma de e-commerce moderna e performática especializada em calçados, desenvolvida com as tecnologias mais recentes do ecossistema React.
+Frontend da SyntaxWear, uma aplicação de e-commerce de calçados construída com React e TypeScript. A interface consome a API da plataforma para disponibilizar catálogo, autenticação, carrinho, checkout e acompanhamento de pedidos.
 
-## 🚀 Tecnologias
+## Funcionalidades
 
-Este projeto foi construído utilizando:
+- Catálogo de produtos com listagem por categoria e página de detalhes;
+- carrinho de compras persistido durante a navegação;
+- cadastro, login, logout e autenticação com Google;
+- rotas protegidas para checkout, pedidos e confirmação da compra;
+- checkout com validação de endereço, consulta de CEP e cálculo de frete;
+- criação e histórico de pedidos;
+- newsletter e páginas institucionais;
+- layout responsivo para dispositivos móveis e desktop.
 
-- **React 19**: Biblioteca principal para construção da interface.
-- **Vite**: Build tool extremamente rápida para o desenvolvimento frontend.
-- **TypeScript**: Superset do JavaScript que adiciona tipagem estática.
-- **TanStack Router**: Roteamento baseado em arquivos com segurança de tipos (Type-safe).
-- **Tailwind CSS 4**: Framework utilitário para estilização rápida e responsiva.
-- **React Hook Form & Zod**: Gerenciamento de formulários e validação de dados.
-- **React Icons**: Conjunto de ícones populares para React.
+## Tecnologias
 
-## ✨ Funcionalidades
+- [React 19](https://react.dev/) e [TypeScript](https://www.typescriptlang.org/);
+- [Vite](https://vite.dev/) para desenvolvimento e build;
+- [TanStack Router](https://tanstack.com/router) para roteamento baseado em arquivos e type-safe;
+- [Tailwind CSS 4](https://tailwindcss.com/) para estilização;
+- [React Hook Form](https://react-hook-form.com/) e [Zod](https://zod.dev/) para formulários e validação;
+- [Vitest](https://vitest.dev/) e Testing Library para testes;
+- [React OAuth Google](https://www.npmjs.com/package/@react-oauth/google) para login social.
 
-- [x] **Navegação Intuitiva**: Sistema de rotas robusto com TanStack Router.
-- [x] **Carrinho de Compras**: Gerenciamento de estado global para produtos no carrinho.
-- [x] **Catálogo de Produtos**: Listagem dinâmica de produtos e categorias.
-- [x] **Detalhes do Produto**: Visualização detalhada de cada item.
-- [x] **Autenticação**: Telas de login e registro prontas para integração.
-- [x] **Responsividade**: Interface adaptável para dispositivos móveis e desktop.
-- [x] **Validação de Formulários**: Feedback em tempo real para o usuário usando Zod.
+## Pré-requisitos
 
-## 📦 Como começar
+- Node.js compatível com o Vite 8;
+- npm;
+- API da Syntax Wear em execução.
 
-### Pré-requisitos
+## Instalação
 
-Certifique-se de ter o [Node.js](https://nodejs.org/) instalado em sua máquina.
+```bash
+git clone https://github.com/andre-arcanjo/syntax-wear-app.git
+cd syntax-wear-app
+npm install
+```
 
-### Instalação
+Crie o arquivo de ambiente a partir do exemplo:
 
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/seu-usuario/syntax-wear-app.git
-   ```
+```bash
+cp .env.example .env
+```
 
-2. Entre no diretório do projeto:
-   ```bash
-   cd syntax-wear-app
-   ```
+No PowerShell, use:
 
-3. Instale as dependências:
-   ```bash
-   npm install
-   ```
+```powershell
+Copy-Item .env.example .env
+```
 
-### Desenvolvimento
+Configure as variáveis:
 
-Para iniciar o servidor de desenvolvimento:
+```env
+VITE_API_URL=http://localhost:3000
+VITE_GOOGLE_CLIENT_ID=
+```
+
+| Variável | Obrigatória | Descrição |
+| --- | --- | --- |
+| `VITE_API_URL` | Sim | URL base da API, sem barra no final. |
+| `VITE_GOOGLE_CLIENT_ID` | Para login Google | Client ID OAuth 2.0 criado no Google Cloud. |
+
+Em seguida, inicie o ambiente de desenvolvimento:
+
 ```bash
 npm run dev
 ```
 
-### Build
+O Vite exibirá no terminal o endereço local da aplicação, normalmente `http://localhost:5173`.
 
-Para gerar a versão de produção:
+> A autenticação utiliza cookies. A API precisa permitir a origem do frontend e estar configurada para receber credenciais.
+
+## Scripts
+
+| Comando | Descrição |
+| --- | --- |
+| `npm run dev` | Inicia o servidor de desenvolvimento. |
+| `npm run build` | Verifica o TypeScript e gera o build de produção em `dist/`. |
+| `npm run preview` | Serve localmente o build de produção. |
+| `npm run lint` | Executa a análise estática com ESLint. |
+| `npm test` | Executa os testes em modo interativo. |
+| `npm run test:run` | Executa toda a suíte de testes uma vez. |
+
+## Estrutura do projeto
+
+```text
+src/
+├── assets/       # Fontes, imagens e ícones
+├── components/   # Componentes de interface e fluxos da aplicação
+├── config/       # Configuração da API
+├── context/      # Estados globais de autenticação e carrinho
+├── mocks/        # Dados auxiliares usados na interface
+├── pages/        # Rotas baseadas em arquivos do TanStack Router
+├── schemas/      # Esquemas de validação Zod
+├── services/     # Comunicação com os endpoints da API
+├── styles/       # Estilos globais
+├── test/         # Configuração do ambiente de testes
+├── types/        # Tipos e interfaces TypeScript
+└── utils/        # Validadores, formatadores e helpers
+```
+
+As rotas públicas incluem a página inicial, catálogo, detalhes de produtos, páginas institucionais, login e cadastro. Checkout, histórico de pedidos e confirmação da compra exigem autenticação.
+
+## Build e deploy
+
+Gere a versão de produção com:
+
 ```bash
 npm run build
 ```
 
-## 📂 Estrutura de Pastas
-
-```text
-src/
-├── assets/         # Imagens, fontes e ícones
-├── components/     # Componentes reutilizáveis (Button, Header, etc.)
-├── context/        # Contextos da aplicação (CartContext)
-├── interfaces/     # Definições de tipos TypeScript
-├── mocks/          # Dados fictícios para desenvolvimento
-├── pages/          # Estrutura de rotas (TanStack Router)
-├── styles/         # Arquivos de estilo global
-└── utils/          # Funções utilitárias e validadores
-```
-
+O projeto inclui `vercel.json` com rewrite para `index.html`, necessário para que as rotas da SPA funcionem ao acessar uma URL diretamente na Vercel. No ambiente de hospedagem, configure também `VITE_API_URL` e, caso o login social seja utilizado, `VITE_GOOGLE_CLIENT_ID`.
